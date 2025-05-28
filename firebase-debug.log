@@ -1,0 +1,108 @@
+[debug] [2025-05-28T18:47:23.382Z] ----------------------------------------------------------------------
+[debug] [2025-05-28T18:47:23.385Z] Command:       /nix/store/rbdrkcs5kkwpalxcd7c6bnm33lk2955n-nodejs-20.19.0/bin/node /nix/store/x1y0l2xj62jgmz6csprhhqzibvdggdpk-firebase-tools-14.3.1/lib/node_modules/firebase-tools/lib/bin/firebase.js deploy --only hosting
+[debug] [2025-05-28T18:47:23.386Z] CLI Version:   14.3.1
+[debug] [2025-05-28T18:47:23.386Z] Platform:      linux
+[debug] [2025-05-28T18:47:23.386Z] Node Version:  v20.19.0
+[debug] [2025-05-28T18:47:23.386Z] Time:          Wed May 28 2025 18:47:23 GMT+0000 (Coordinated Universal Time)
+[debug] [2025-05-28T18:47:23.387Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-28T18:47:24.019Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-28T18:47:24.020Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-05-28T18:47:24.020Z] [iam] checking project repair-project-dbf11 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-05-28T18:47:24.022Z] No OAuth tokens found
+[debug] [2025-05-28T18:47:24.023Z] No OAuth tokens found
+[debug] [2025-05-28T18:47:24.023Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-28T18:47:24.024Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-05-28T18:47:24.025Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions [none]
+[debug] [2025-05-28T18:47:24.025Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions x-goog-quota-user=projects/repair-project-dbf11
+[debug] [2025-05-28T18:47:24.025Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-05-28T18:47:24.751Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions 200
+[debug] [2025-05-28T18:47:24.752Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-05-28T18:47:24.754Z] No OAuth tokens found
+[debug] [2025-05-28T18:47:24.754Z] No OAuth tokens found
+[debug] [2025-05-28T18:47:24.754Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-28T18:47:24.754Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-05-28T18:47:24.755Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/repair-project-dbf11 [none]
+[debug] [2025-05-28T18:47:25.009Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/repair-project-dbf11 200
+[debug] [2025-05-28T18:47:25.009Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/repair-project-dbf11 {"projectId":"repair-project-dbf11","projectNumber":"803740653297","displayName":"Repair-project","name":"projects/repair-project-dbf11","resources":{"hostingSite":"repair-project-dbf11"},"state":"ACTIVE","etag":"1_395d4cf1-2b86-42e3-ac90-cb77e281a81f"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-05-28T18:47:35.256Z] No OAuth tokens found
+[debug] [2025-05-28T18:47:35.257Z] No OAuth tokens found
+[debug] [2025-05-28T18:47:35.257Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-28T18:47:35.257Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-05-28T18:47:35.259Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites/repair-project-dbf11 [none]
+[debug] [2025-05-28T18:47:36.039Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites/repair-project-dbf11 200
+[debug] [2025-05-28T18:47:36.039Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites/repair-project-dbf11 {"name":"projects/repair-project-dbf11/sites/repair-project-dbf11","defaultUrl":"https://repair-project-dbf11.web.app","type":"DEFAULT_SITE"}
+[info]   ▲ Next.js 14.2.3
+
+[info] 
+
+[info]    Creating an optimized production build ...
+
+[info]  ✓ Compiled successfully
+
+[info]    Linting and checking validity of types ...
+
+[info] 
+   We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+   The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+   	- include was updated to add '.next/types/**/*.ts'
+   	- plugins was updated to add { name: 'next' }
+
+   The following mandatory changes were made to your tsconfig.json:
+
+   	- esModuleInterop was set to true (requirement for SWC / babel)
+
+
+[info]    Collecting page data ...
+
+[info]    Generating static pages (0/6) ...
+
+[info]    Generating static pages (1/6) 
+
+[info]    Generating static pages (2/6) 
+
+[info]    Generating static pages (4/6) 
+
+[info]  ✓ Generating static pages (6/6)
+
+[info]    Finalizing page optimization ...
+
+[info]    Collecting build traces ...
+
+[info] 
+
+[info] Route (app)                              Size     First Load JS
+┌ ○ /                                    141 B          87.2 kB
+├ ○ /_not-found                          876 B          87.9 kB
+├ ○ /new-order                           1.53 kB        88.6 kB
+└ ƒ /orders                              141 B          87.2 kB
++ First Load JS shared by all            87 kB
+  ├ chunks/1dd3208c-5d3b89b301e8e47b.js  53.7 kB
+  ├ chunks/286-103371da18bcc7e5.js       31.5 kB
+  └ other shared chunks (total)          1.91 kB
+
+
+
+[info] ○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[debug] [2025-05-28T18:48:25.330Z] Error: Unable to find the next dep, try NPM installing?
+    at getConfig (/nix/store/x1y0l2xj62jgmz6csprhhqzibvdggdpk-firebase-tools-14.3.1/lib/node_modules/firebase-tools/lib/frameworks/next/index.js:471:19)
+    at async build (/nix/store/x1y0l2xj62jgmz6csprhhqzibvdggdpk-firebase-tools-14.3.1/lib/node_modules/firebase-tools/lib/frameworks/next/index.js:83:59)
+    at async prepareFrameworks (/nix/store/x1y0l2xj62jgmz6csprhhqzibvdggdpk-firebase-tools-14.3.1/lib/node_modules/firebase-tools/lib/frameworks/index.js:226:33)
+    at async deploy (/nix/store/x1y0l2xj62jgmz6csprhhqzibvdggdpk-firebase-tools-14.3.1/lib/node_modules/firebase-tools/lib/deploy/index.js:76:9)
+[error] 
+[error] Error: An unexpected error has occurred.

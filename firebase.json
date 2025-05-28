@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "source": "apps/frontend",
+    "frameworksBackend": { "region": "europe-west1" },
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "auto-parts-platform",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+ ],
+ "scripts": {
+    "dev:backend": "npm run dev --workspace=@auto-parts/backend",
+    "dev:frontend": "npm run dev --workspace=@auto-parts/frontend",
+    "build": "npm run build --workspaces"
+ }
+}

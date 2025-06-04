@@ -6,10 +6,16 @@
   "workspaces": [
     "apps/*",
     "packages/*"
- ],
- "scripts": {
+  ],
+  "scripts": {
     "dev:backend": "npm run dev --workspace=@auto-parts/backend",
     "dev:frontend": "npm run dev --workspace=@auto-parts/frontend",
     "build": "npm run build --workspaces"
- }
+  },
+  "dependencies": {
+    "firebase": "^11.8.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.6"
+  }
 }

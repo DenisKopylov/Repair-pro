@@ -10,7 +10,7 @@ dotenv.config();
 // если передать её в app.listen("8080"), сервер попытается
 // слушать named pipe, а не TCP-порт.
 // Поэтому явно конвертируем в число:
-const PORT = Number(process.env.PORT) || 4000;
+const PORT = Number(process.env.PORT) || 8080;
 
 // URI берём из env или локально подключаемся к Mongo
 const MONGODB_URI =

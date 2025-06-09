@@ -51,6 +51,12 @@
       "namedRegex": "^/admin/orders(?:/)?$"
     },
     {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
       "page": "/new-order",
       "regex": "^/new\\-order(?:/)?$",
       "routeKeys": {},
@@ -61,6 +67,12 @@
       "regex": "^/orders(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/orders(?:/)?$"
+    },
+    {
+      "page": "/register",
+      "regex": "^/register(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/register(?:/)?$"
     }
   ],
   "dataRoutes": [],

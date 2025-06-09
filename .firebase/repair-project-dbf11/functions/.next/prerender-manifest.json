@@ -25,6 +25,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/login": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/login",
+      "dataRoute": "/login.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/new-order": {
       "experimentalBypassFor": [
         {
@@ -96,13 +120,37 @@
         "x-next-revalidated-tags",
         "x-next-revalidate-tag-token"
       ]
+    },
+    "/register": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/register",
+      "dataRoute": "/register.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
     }
   },
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "6a090d3627a558b73d2195aa81dd21c5",
-    "previewModeSigningKey": "7fdbb7fbb8979a4760f45ca4404d0f23a6ab36fbe1853b51cc6e761b337e9443",
-    "previewModeEncryptionKey": "ac804df23eb2fe8c886dbacea36c75d40184289fafc8448513e2c17a594878ed"
+    "previewModeId": "876743937ca5647e44663ed15e062cc6",
+    "previewModeSigningKey": "e9abeb68c711d037ee7a512f3e348cea11d9f1b947b49a686081eac45f14516d",
+    "previewModeEncryptionKey": "09e62257ffea2c9b8a10ccede57a469a8adc1831b8328a48ea2ba8cc849e279b"
   }
 }

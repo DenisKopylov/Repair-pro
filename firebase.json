@@ -1,7 +1,23 @@
 {
-  "hosting": {
-    "source": "apps/frontend",
-    "frameworksBackend": { "region": "europe-west1" },
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
-  }
+  "hosting": [
+    {
+      "target": "frontend",
+      "public": "apps/frontend/out",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    },
+    {
+      "target": "backend",
+      "public": "apps/backend",      
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "/api/**",
+          "run": {
+            "serviceId": "repair-backend",  
+            "region": "europe-west4"
+          }
+        }
+      ]
+    }
+  ]
 }

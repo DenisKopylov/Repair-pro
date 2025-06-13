@@ -1,29 +1,36 @@
 "use strict";
-// apps/backend/src/app.ts
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createApp = void 0;
+// apps/backend/src/app.ts
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const auth_route_1 = __importDefault(require("./routes/auth.route"));
 const orders_route_1 = __importDefault(require("./routes/orders.route"));
 const createApp = () => {
     const app = (0, express_1.default)();
-    // Настраиваем CORS, чтобы фронтенд (http://localhost:3000) мог делать запросы с авторизацией
+    // ───────────────
+    // Динамический CORS из переменной среды
+    // В apphosting.yaml определите:
+    //   FRONTEND_ORIGINS="http://localhost:3000,https://repair-project-dbf11.web.app"
+    const origins = (process.env.FRONTEND_ORIGINS || "")
+        .split(",")
+        .map(u => u.trim())
+        .filter(Boolean);
     app.use((0, cors_1.default)({
-        origin: ["http://localhost:3000"], // сюда добавьте ваш фронтенд, если деплоите
+        origin: origins,
         credentials: true,
     }));
+    // ───────────────
     app.use(express_1.default.json());
-    // Простейший health-check
+    // Простейшие health-checks
     app.get("/health", (_req, res) => res.json({ status: "ok" }));
-    // Подключаем роуты аутентификации
-    // POST /auth/register, POST /auth/login
+    app.get("/healthz", (_req, res) => res.sendStatus(200));
+    // Роуты аутентификации
     app.use("/auth", auth_route_1.default);
-    // Подключаем роуты заказов
-    // Внутри ordersRouter уже есть свою аутентификация/авторизация
+    // Роуты заказов
     app.use("/orders", orders_route_1.default);
     return app;
 };

@@ -25,6 +25,9 @@ env:
         "databaseURL":  "https://repair-project-dbf11-default-rtdb.europe-west1.firebasedatabase.app"
       }
     availability: [RUNTIME]     # билду не нужна
+  # ───────── фр
+  - variable: GOOGLE_NODEJS_INSTALL_DEV_DEPENDENCIES
+    value: "true"
 
   # ───────── фронт
   - variable: FRONTEND_ORIGINS

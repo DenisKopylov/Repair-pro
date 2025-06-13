@@ -13,7 +13,7 @@ env:
   # ───────── Обычные переменные
   - variable: NODE_ENV
     value: production           # важно, если в коде есть if (process.env.NODE_ENV === 'production')
-    availability: [BUILD, RUNTIME]
+    availability: [RUNTIME]
 
   # Firebase Admin SDK читает эту переменную на старте
   # Исправлен storageBucket (.appspot.com)

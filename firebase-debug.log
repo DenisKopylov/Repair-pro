@@ -64,3 +64,70 @@
 [debug] [2025-06-13T18:19:50.251Z] Error: ENOENT: no such file or directory, open '/home/user/repair-platform/apps/backend/.next/server/middleware-manifest.json'
 [error] 
 [error] Error: An unexpected error has occurred.
+[debug] [2025-06-13T18:23:31.692Z] ----------------------------------------------------------------------
+[debug] [2025-06-13T18:23:31.695Z] Command:       /nix/store/ixbb20farqh1f4fqbmsn6b1ixn8mc8ij-nodejs-20.18.1/bin/node /home/user/.global_modules/bin/firebase deploy --only hosting:backend
+[debug] [2025-06-13T18:23:31.696Z] CLI Version:   14.7.0
+[debug] [2025-06-13T18:23:31.696Z] Platform:      linux
+[debug] [2025-06-13T18:23:31.697Z] Node Version:  v20.18.1
+[debug] [2025-06-13T18:23:31.697Z] Time:          Fri Jun 13 2025 18:23:31 GMT+0000 (Coordinated Universal Time)
+[debug] [2025-06-13T18:23:31.697Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-06-13T18:23:32.214Z] Field "/hosting" in "firebase.json" is possibly invalid: must be object
+[debug] [2025-06-13T18:23:32.214Z] Object "/hosting/1/frameworksBackend" in "firebase.json" has unknown property: {"additionalProperty":"build"}
+[debug] [2025-06-13T18:23:32.215Z] Object "/hosting/1" in "firebase.json" is missing required property: {"missingProperty":"site"}
+[debug] [2025-06-13T18:23:32.215Z] Field "/hosting/1" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-06-13T18:23:32.215Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-06-13T18:23:32.222Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-13T18:23:32.222Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-06-13T18:23:32.223Z] [iam] checking project repair-project-dbf11 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-06-13T18:23:32.224Z] No OAuth tokens found
+[debug] [2025-06-13T18:23:32.225Z] No OAuth tokens found
+[debug] [2025-06-13T18:23:32.225Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-13T18:23:32.225Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-06-13T18:23:32.226Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions [none]
+[debug] [2025-06-13T18:23:32.227Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions x-goog-quota-user=projects/repair-project-dbf11
+[debug] [2025-06-13T18:23:32.227Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-06-13T18:23:33.003Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions 200
+[debug] [2025-06-13T18:23:33.003Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/repair-project-dbf11:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-06-13T18:23:33.005Z] No OAuth tokens found
+[debug] [2025-06-13T18:23:33.006Z] No OAuth tokens found
+[debug] [2025-06-13T18:23:33.006Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-13T18:23:33.006Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-06-13T18:23:33.007Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/repair-project-dbf11 [none]
+[debug] [2025-06-13T18:23:33.267Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/repair-project-dbf11 200
+[debug] [2025-06-13T18:23:33.267Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/repair-project-dbf11 {"projectId":"repair-project-dbf11","projectNumber":"803740653297","displayName":"Repair-project","name":"projects/repair-project-dbf11","resources":{"hostingSite":"repair-project-dbf11","realtimeDatabaseInstance":"repair-project-dbf11-default-rtdb"},"state":"ACTIVE","etag":"1_9906daa8-766b-4e67-8dd5-92dbf854e958"}
+[debug] [2025-06-13T18:23:37.687Z] defaultcredentials: no credential available.
+[debug] [2025-06-13T18:23:37.688Z] No OAuth tokens found
+[debug] [2025-06-13T18:23:37.688Z] No OAuth tokens found
+[debug] [2025-06-13T18:23:37.688Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-13T18:23:37.688Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-06-13T18:23:37.690Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites pageToken=&pageSize=10
+[debug] [2025-06-13T18:23:38.871Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites 200
+[debug] [2025-06-13T18:23:38.872Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites {"sites":[{"name":"projects/repair-project-dbf11/sites/repair-project-dbf11","defaultUrl":"https://repair-project-dbf11.web.app","appId":"1:803740653297:web:40c6c84bf262c905f7fb50","type":"DEFAULT_SITE"}]}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-06-13T18:23:49.800Z] No OAuth tokens found
+[debug] [2025-06-13T18:23:49.801Z] No OAuth tokens found
+[debug] [2025-06-13T18:23:49.801Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-13T18:23:49.802Z] > authorizing via signed-in user (natashka2201@gmail.com)
+[debug] [2025-06-13T18:23:49.802Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites/repair-project-dbf11 [none]
+[debug] [2025-06-13T18:23:50.786Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites/repair-project-dbf11 200
+[debug] [2025-06-13T18:23:50.786Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/repair-project-dbf11/sites/repair-project-dbf11 {"name":"projects/repair-project-dbf11/sites/repair-project-dbf11","defaultUrl":"https://repair-project-dbf11.web.app","appId":"1:803740653297:web:40c6c84bf262c905f7fb50","type":"DEFAULT_SITE"}
+[info] 
+
+[info] > Build error occurred
+
+[info] [Error: > Couldn't find any `pages` or `app` directory. Please create one under the project root]
+
+[debug] [2025-06-13T18:23:51.995Z] Error: ENOENT: no such file or directory, open '/home/user/repair-platform/apps/backend/.next/server/middleware-manifest.json'
+[error] 
+[error] Error: An unexpected error has occurred.

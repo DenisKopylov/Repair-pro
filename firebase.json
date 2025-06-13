@@ -3,11 +3,7 @@
     {
       "target": "frontend",
       "public": "apps/frontend/out",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
           "source": "/api/**",
@@ -30,22 +26,28 @@
         "build": "npm --prefix \"$RESOURCE_DIR\" run build",
         "server": "npm --prefix \"$RESOURCE_DIR\" run start"
       },
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "/healthz",
+          "run": {
+            "serviceId": "repair-backend",
+            "region": "europe-west4"
+          }
+        },
+        {
+          "source": "/**",
+          "run": {
+            "serviceId": "repair-backend",
+            "region": "europe-west4"
+          }
+        }
       ]
     }
   ],
   "apphosting": {
     "backendId": "repair-backend",
     "rootDir": "/",
-    "ignore": [
-      "node_modules",
-      ".git",
-      "firebase-debug.log",
-      "firebase-debug.*.log",
-      "functions"
-    ]
+    "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log", "functions"]
   }
 }

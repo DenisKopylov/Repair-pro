@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "repair-project-dbf11"
-  }
+  },
+  "targets": {
+    "repair-project-dbf11": {
+      "hosting": {
+        "backend": [
+          "repair-backend:europe-west4"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

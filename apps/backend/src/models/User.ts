@@ -1,24 +1,28 @@
 // apps/backend/src/models/User.ts
-import mongoose from "mongoose";
+import { db } from '../lib/db';
 
-export type UserRole = "USER" | "ADMIN";
+export type UserRole = 'USER' | 'ADMIN';
 
-export interface IUser extends mongoose.Document {
+export interface IUser {
+  id?: string;
   email: string;
   passwordHash: string;
-  name: string;          // = future clientName
+  name: string; // = future clientName
   role: UserRole;
-  createdAt: Date;       // из timestamps
+  createdAt?: Date;
 }
 
-const userSchema = new mongoose.Schema<IUser>(
-  {
-    email:        { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
-    name:         { type: String, required: true },
-    role:         { type: String, enum: ["USER", "ADMIN"], default: "USER" },
-  },
-  { timestamps: true }
-);
+const collection = db.collection('users');
 
-export const User = mongoose.model<IUser>("User", userSchema);
+export async function findUserByEmail(email: string): Promise<IUser | null> {
+  const snap = await collection.where('email', '==', email).limit(1).get();
+  if (snap.empty) return null;
+  const doc = snap.docs[0];
+  return { id: doc.id, ...(doc.data() as Omit<IUser, 'id'>) };
+}
+
+export async function createUser(data: Omit<IUser, 'id' | 'createdAt'>): Promise<IUser> {
+  const docRef = await collection.add({ ...data, createdAt: new Date() });
+  const doc = await docRef.get();
+  return { id: doc.id, ...(doc.data() as Omit<IUser, 'id'>) };
+}

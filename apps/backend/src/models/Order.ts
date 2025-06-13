@@ -1,50 +1,61 @@
 // apps/backend/src/models/Order.ts
-import mongoose from "mongoose";
+import { db } from '../lib/db';
 
 export type OrderStatus =
-  | "NEW"
-  | "OFFERED"
-  | "CONFIRMED"
-  | "DECLINED"
-  | "IN_PROGRESS"
-  | "DONE";
+  | 'NEW'
+  | 'OFFERED'
+  | 'CONFIRMED'
+  | 'DECLINED'
+  | 'IN_PROGRESS'
+  | 'DONE';
 
-export interface IOrder extends mongoose.Document {
-  /* --- обовʼязкові поля --- */
-  userId:    string;   // ідентифікатор аккаунта-замовника (СТО)
-  clientName:string;   // читабельна назва сервіс-центру
-  partType:  string;
-  description:string;
-  status:    OrderStatus;
-
-  /* --- необовʼязкові поля --- */
+export interface IOrder {
+  id?: string;
+  userId: string;
+  clientName: string;
+  partType: string;
+  description: string;
+  status: OrderStatus;
   defectPrice?: number;
   repairPrice?: number;
-  workHours?:  number;
-  images:      string[];
-
-  /* --- автоматичні поля (timestamps) --- */
-  createdAt: Date;
-  updatedAt: Date;
+  workHours?: number;
+  images: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-const orderSchema = new mongoose.Schema<IOrder>(
-  {
-    userId:     { type: String, required: true },
-    clientName: { type: String, required: true },          // 👈 нове поле
-    partType:   { type: String, required: true },
-    description:{ type: String, required: true },
-    status:     {
-      type: String,
-      enum: ["NEW","OFFERED","CONFIRMED","DECLINED","IN_PROGRESS","DONE"],
-      default: "NEW",
-    },
-    defectPrice:Number,
-    repairPrice:Number,
-    workHours:  Number,
-    images:     [String],
-  },
-  { timestamps: true }   // створює createdAt / updatedAt
-);
+const collection = db.collection('orders');
 
-export const Order = mongoose.model<IOrder>("Order", orderSchema);
+export async function createOrder(data: Omit<IOrder, 'id' | 'createdAt' | 'updatedAt'>): Promise<IOrder> {
+  const docRef = await collection.add({ ...data, createdAt: new Date(), updatedAt: new Date() });
+  const doc = await docRef.get();
+  return { id: doc.id, ...(doc.data() as Omit<IOrder, 'id'>) };
+}
+
+export async function getOrder(id: string): Promise<IOrder | null> {
+  const doc = await collection.doc(id).get();
+  if (!doc.exists) return null;
+  return { id: doc.id, ...(doc.data() as Omit<IOrder, 'id'>) };
+}
+
+export async function updateOrder(id: string, data: Partial<IOrder>): Promise<IOrder | null> {
+  const ref = collection.doc(id);
+  const doc = await ref.get();
+  if (!doc.exists) return null;
+  await ref.update({ ...data, updatedAt: new Date() });
+  const updated = await ref.get();
+  return { id: updated.id, ...(updated.data() as Omit<IOrder, 'id'>) };
+}
+
+export async function listOrders(filter: any, sortField: string, sortDir: 'asc' | 'desc'): Promise<IOrder[]> {
+  let q: FirebaseFirestore.Query = collection;
+  if (filter.userId) q = q.where('userId', '==', filter.userId);
+  if (filter.status) q = q.where('status', '==', filter.status);
+  if (filter.partType) q = q.where('partType', '==', filter.partType);
+  if (filter.clientName) q = q.where('clientName', '>=', filter.clientName).where('clientName', '<=', filter.clientName + '\uf8ff');
+  if (filter.from) q = q.where('createdAt', '>=', filter.from);
+  if (filter.to) q = q.where('createdAt', '<=', filter.to);
+  q = q.orderBy(sortField, sortDir as any);
+  const snap = await q.get();
+  return snap.docs.map(d => ({ id: d.id, ...(d.data() as Omit<IOrder, 'id'>) }));
+}

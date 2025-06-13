@@ -1,25 +1,32 @@
 # Settings for Backend (on Cloud Run).
 # See https://firebase.google.com/docs/app-hosting/configure#cloud-run
 runConfig:
-  minInstances: 0
-  maxInstances: 100
-  concurrency: 80
-  cpu: 1
-  memoryMiB: 512
+  timeoutSeconds: 600      # чтобы Cloud Run дождался старта → можно уменьшить, если ускорите launch
+  minInstances: 0          # держим ноль «тёплых» экземпляров (не платим «всегда-вкл»)
+  maxInstances: 100        # лимит автоскейла
+  concurrency: 80          # дефолт Cloud Run для 1 CPU
+  cpu: 1                   # достаточно для Express-приложения
+  memoryMiB: 512           # ok, если нет heavy-tasks
 
-# Environment variables and secrets.
+## Environment variables & secrets
 env:
-  # Configure environment variables.
-  # See https://firebase.google.com/docs/app-hosting/configure#user-defined-environment
+  # ───────── Обычные переменные
   - variable: NODE_ENV
-    value: production
-    availability:
-      - BUILD
-      - RUNTIME
+    value: production           # важно, если в коде есть if (process.env.NODE_ENV === 'production')
+    availability: [BUILD, RUNTIME]
 
-  # Grant access to secrets in Cloud Secret Manager.
-  # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
+  # Firebase Admin SDK читает эту переменную на старте
+  # Исправлен storageBucket (.appspot.com)
+  - variable: FIREBASE_CONFIG
+    value: |
+      {
+        "projectId":   "repair-project-dbf11",
+        "storageBucket": "repair-project-dbf11.appspot.com",
+        "databaseURL":  "https://repair-project-dbf11-default-rtdb.europe-west1.firebasedatabase.app"
+      }
+    availability: [RUNTIME]     # билду не нужна
+
+  # ───────── Секреты (Cloud Secret Manager)
   - variable: JWT_SECRET
-    secret: jwt-secret
-    availability:
-      - RUNTIME
+    secret: jwt-secret          # ⚠️ Создайте `jwt-secret` в Secret Manager, если ещё нет
+    availability: [RUNTIME]

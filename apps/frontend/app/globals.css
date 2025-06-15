@@ -1,6 +1,14 @@
+@import "./tokens.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* твои глобальные стили ниже */
-body { @apply bg-white text-gray-900; }
+body {
+    font: var(--font-body);
+    color: var(--color-neutral-900);
+    background-color: var(--color-neutral-50);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font: var(--font-heading);
+  }

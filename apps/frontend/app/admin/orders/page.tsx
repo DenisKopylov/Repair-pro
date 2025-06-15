@@ -22,7 +22,7 @@ const fetcher = (url: string) =>
 const badgeColor: Record<string, string> = {
   NEW: "bg-stone-200 text-stone-700",
   OFFERED: "bg-yellow-100 text-yellow-700",
-  IN_PROGRESS: "bg-orange-100 text-orange-700",
+  IN_PROGRESS: "bg-primary-50 text-primary-600",
   DONE: "bg-green-100 text-green-700",
   DECLINED: "bg-stone-300 text-stone-600",
 };
@@ -122,7 +122,7 @@ export default function AdminOrders() {
           value={search}
           onChange={handleSearchChange}
           placeholder="Поиск по названию сервиса или ID"
-          className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600"
         />
 
         {/* Два селекта в одной строке: статус + деталь */}
@@ -130,7 +130,7 @@ export default function AdminOrders() {
           <select
             value={status}
             onChange={handleStatusChange}
-            className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600"
           >
             {statusOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -141,7 +141,7 @@ export default function AdminOrders() {
           <select
             value={partType}
             onChange={handlePartChange}
-            className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600"
           >
             {partOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -157,13 +157,13 @@ export default function AdminOrders() {
             type="date"
             value={fromDate}
             onChange={handleFromChange}
-            className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600"
           />
           <input
             type="date"
             value={toDate}
             onChange={handleToChange}
-            className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600"
           />
         </div>
       </div>
@@ -173,7 +173,7 @@ export default function AdminOrders() {
         <Link
           href={`/admin/orders/${o._id}`}
           key={o._id}
-          className="block bg-white shadow rounded-xl p-4 mb-5 ring-1 ring-stone-200 hover:ring-orange-400/60 transition"
+          className="block bg-white shadow rounded-xl p-4 mb-5 ring-1 ring-stone-200 hover:ring-primary-600/60 transition"
         >
           <div className="flex items-start justify-between gap-3">
             {/* левая часть: клиент + тип + дата */}

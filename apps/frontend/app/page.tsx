@@ -58,16 +58,16 @@ export default function Home() {
 
           {/* Desktop nav */}
           <nav className="hidden sm:flex gap-6 text-sm text-stone-700">
-            <Link href="/new-order" className="hover:text-orange-600">
+          <Link href="/new-order" className="hover:text-primary-600">
               Создать заказ
             </Link>
-            <Link href="/orders" className="hover:text-orange-600">
+            <Link href="/orders" className="hover:text-primary-600">
               Мои заказы
             </Link>
-            <Link href="/admin/orders" className="hover:text-orange-600">
+            <Link href="/admin/orders" className="hover:text-primary-600">
               Заказы (Admin)
             </Link>
-            <a href="#parts" className="hover:text-orange-600">
+            <a href="#parts" className="hover:text-primary-600">
               Детали
             </a>
           </nav>
@@ -77,13 +77,13 @@ export default function Home() {
         <div className="hidden sm:flex gap-4">
           <Link
             href="/register"
-            className="text-sm text-stone-700 hover:text-orange-600"
+            className="text-sm text-stone-700 hover:text-primary-600"
           >
             Регистрация
           </Link>
           <Link
             href="/login"
-            className="text-sm text-stone-700 hover:text-orange-600"
+            className="text-sm text-stone-700 hover:text-primary-600"
           >
             Вход
           </Link>
@@ -145,7 +145,7 @@ export default function Home() {
           </p>
           <Link
             href="/new-order"
-            className="bg-orange-500 hover:bg-orange-600 transition rounded-md px-6 py-2 text-sm font-semibold shadow-md"
+             className="bg-primary-500 hover:bg-primary-600 transition rounded-md px-6 py-2 text-sm font-semibold shadow-md"
           >
             Создать заказ
           </Link>
@@ -182,7 +182,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
           {steps.map(({ n, title, desc }) => (
             <div key={n} className="flex flex-col items-center text-center space-y-4">
-              <div className="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-semibold text-lg">
+                <div className="w-14 h-14 rounded-full bg-primary-50 flex items-center justify-center text-primary-600 font-semibold text-lg">
                 {n}
               </div>
               <h3 className="font-semibold text-sm sm:text-base text-stone-800">
@@ -206,7 +206,7 @@ export default function Home() {
           </p>
           <Link
             href="/new-order"
-            className="inline-block bg-orange-500 hover:bg-orange-600 transition rounded-md px-8 py-3 text-base font-semibold text-white shadow-md"
+           className="inline-block bg-primary-500 hover:bg-primary-600 transition rounded-md px-8 py-3 text-base font-semibold text-white shadow-md"
           >
             Разместить заказ
           </Link>

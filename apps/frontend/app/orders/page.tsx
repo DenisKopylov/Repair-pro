@@ -31,7 +31,7 @@ const partIcons: Record<string, ReactElement> = {
 };
 
 const statusColor: Record<string, string> = {
-  NEW: "bg-orange-100 text-orange-700",
+  NEW: "bg-primary-50 text-primary-600",
   OFFERED: "bg-yellow-100 text-yellow-800",
   CONFIRMED: "bg-green-100 text-green-700",
   IN_PROGRESS: "bg-blue-100 text-blue-700",
@@ -60,11 +60,11 @@ export default function OrdersList() {
         <Link
           href={`/orders/${o._id}`}
           key={o._id}
-          className="block bg-white rounded-xl shadow-sm mb-5 ring-1 ring-stone-200 hover:ring-orange-400/60 transition"
+          className="block bg-white rounded-xl shadow-sm mb-5 ring-1 ring-stone-200 hover:ring-primary-600/60 transition"
         >
           {/* верхняя строка */}
           <div className="flex items-start gap-3 p-4">
-            <div className="shrink-0 rounded-lg bg-orange-50 p-3">
+          <div className="shrink-0 rounded-lg bg-primary-50 p-3">
               {partIcons[o.partType] ?? <Package className="w-5 h-5" />}
             </div>
             <div className="grow">
@@ -135,7 +135,7 @@ function ProgressBar({ status }: { status: string }) {
       ? "bg-emerald-500"
       : status === "IN_PROGRESS"
       ? "bg-yellow-400"
-      : "bg-orange-500";
+      : "bg-primary-500";
 
   const pct = percentMap[status] ?? 0;
 

@@ -75,7 +75,7 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
               placeholder="example@domain.com"
             />
           </div>
@@ -93,7 +93,7 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
               placeholder="Ваш пароль"
             />
           </div>
@@ -104,9 +104,9 @@ export default function LoginPage() {
             className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-semibold text-white 
               ${
                 loading
-                  ? "bg-orange-300 cursor-not-allowed"
-                  : "bg-orange-500 hover:bg-orange-600"
-              } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition`}
+                ? "bg-primary-50 cursor-not-allowed"
+                : "bg-primary-500 hover:bg-primary-600"
+            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition`}
           >
             {loading ? "Входим..." : "Войти"}
           </button>
@@ -114,7 +114,7 @@ export default function LoginPage() {
 
         <p className="mt-4 text-center text-sm text-stone-600">
           Ещё нет аккаунта?{" "}
-          <Link href="/register" className="text-orange-500 hover:underline">
+          <Link href="/register" className="text-primary-500 hover:underline">
             Зарегистрироваться
           </Link>
         </p>

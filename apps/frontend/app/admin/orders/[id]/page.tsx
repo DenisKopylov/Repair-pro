@@ -104,7 +104,7 @@ export default function AdminOrderEdit() {
             type="number"
             value={defectPrice}
             onChange={(e) => setDefectPrice(e.target.value)}
-            className="block w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            className="block w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
             placeholder="0"
           />
         </div>
@@ -121,7 +121,7 @@ export default function AdminOrderEdit() {
             type="number"
             value={repairPrice}
             onChange={(e) => setRepairPrice(e.target.value)}
-            className="block w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            className="block w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
             placeholder="0"
           />
         </div>
@@ -138,7 +138,7 @@ export default function AdminOrderEdit() {
             type="number"
             value={workHours}
             onChange={(e) => setWorkHours(e.target.value)}
-            className="block w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            className="block w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
             placeholder="0"
           />
         </div>
@@ -164,7 +164,7 @@ export default function AdminOrderEdit() {
       {/* Кнопка Сохранить */}
       <button
         onClick={save}
-        className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-3 text-sm font-semibold transition"
+        className="w-full bg-primary-500 hover:bg-primary-600 text-white rounded-md py-3 text-sm font-semibold transition"
       >
         Сохранить
       </button>

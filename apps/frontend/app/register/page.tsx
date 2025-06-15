@@ -75,8 +75,7 @@ export default function RegisterPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-              placeholder="Ваше имя"
+                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
             />
           </div>
 
@@ -93,7 +92,7 @@ export default function RegisterPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
               placeholder="example@domain.com"
             />
           </div>
@@ -111,7 +110,7 @@ export default function RegisterPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
               placeholder="Минимум 6 символов"
             />
           </div>
@@ -122,9 +121,9 @@ export default function RegisterPage() {
             className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-semibold text-white 
               ${
                 loading
-                  ? "bg-orange-300 cursor-not-allowed"
-                  : "bg-orange-500 hover:bg-orange-600"
-              } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition`}
+                ? "bg-primary-50 cursor-not-allowed"
+                : "bg-primary-500 hover:bg-primary-600"
+            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition`}
           >
             {loading ? "Регистрация..." : "Зарегистрироваться"}
           </button>
@@ -132,7 +131,7 @@ export default function RegisterPage() {
 
         <p className="mt-4 text-center text-sm text-stone-600">
           Уже зарегистрированы?{" "}
-          <Link href="/login" className="text-orange-500 hover:underline">
+          <Link href="/login" className="text-primary-500 hover:underline">
             Войти
           </Link>
         </p>

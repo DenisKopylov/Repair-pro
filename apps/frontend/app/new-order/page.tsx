@@ -125,7 +125,7 @@ export default function NewOrder() {
           <span className="text-sm text-stone-400">Part Details</span>
         </div>
         <div className="w-full h-1 bg-stone-200 rounded-full">
-          <div className="w-1/3 h-full bg-orange-500 rounded-full transition-all" />
+         <div className="w-1/3 h-full bg-primary-500 rounded-full transition-all" />
         </div>
       </div>
 
@@ -141,7 +141,7 @@ export default function NewOrder() {
               id="partType"
               value={partType}
               onChange={(e) => setPartType(e.target.value)}
-              className="w-full bg-stone-100 rounded-md border border-transparent focus:border-orange-500 focus:ring-0 px-4 py-3 text-sm text-stone-700"
+              className="w-full bg-stone-100 rounded-md border border-transparent focus:border-primary-500 focus:ring-0 px-4 py-3 text-sm text-stone-700"
             >
               <option value="">Выберите тип детали</option>
               <option>Генератор</option>
@@ -166,13 +166,13 @@ export default function NewOrder() {
                 relative flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 
                 ${
                   dragOver
-                    ? "border-orange-400 bg-orange-50"
+                    ? "border-primary-600 bg-primary-50"
                     : "border-stone-300 bg-white"
                 } transition-colors`}
             >
               <UploadCloud
                 size={32}
-                className={`${dragOver ? "text-orange-500" : "text-stone-400"}`}
+                className={`${dragOver ? "text-primary-500" : "text-stone-400"}`}
               />
               <p className="mt-2 text-sm text-stone-600 text-center">
                 Перетащите фото детали или нажмите «Обзор»
@@ -180,7 +180,7 @@ export default function NewOrder() {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-3 inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white rounded-md px-4 py-2 text-sm font-medium transition"
+                className="mt-3 inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white rounded-md px-4 py-2 text-sm font-medium transition"
               >
                 Обзор файлов
               </button>
@@ -210,7 +210,7 @@ export default function NewOrder() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
-              className="w-full bg-stone-100 rounded-md border border-transparent focus:border-orange-500 focus:ring-0 px-4 py-3 text-sm text-stone-700 resize-none"
+              className="w-full bg-stone-100 rounded-md border border-transparent focus:border-primary-500 focus:ring-0 px-4 py-3 text-sm text-stone-700 resize-none"
               placeholder="Чётко опишите проблему с деталью..."
             />
           </div>
@@ -220,8 +220,8 @@ export default function NewOrder() {
             type="submit"
             disabled={uploading}
             className={`
-              w-full flex items-center justify-center gap-2 bg-orange-500 
-              hover:bg-orange-600 text-white rounded-md py-3 text-sm font-semibold transition
+              w-full flex items-center justify-center gap-2 bg-primary-500 
+              hover:bg-primary-600 text-white rounded-md py-3 text-sm font-semibold transition
               ${uploading ? "opacity-70 cursor-not-allowed" : ""}
             `}
           >

@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
@@ -45,6 +45,16 @@ export default function Home() {
 
   /* -------------------- Состояние бургер-меню -------------------- */
   const [open, setOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      setIsAdmin(payload.role === "ADMIN");
+    } catch {}
+  }, []);
 
   return (
     <main className="flex flex-col min-h-screen font-sans bg-white">
@@ -64,9 +74,16 @@ export default function Home() {
             <Link href="/orders" className="hover:text-primary-600">
               Мои заказы
             </Link>
-            <Link href="/admin/orders" className="hover:text-primary-600">
-              Заказы (Admin)
-            </Link>
+            {isAdmin && (
+              <>
+                <Link href="/admin/orders" className="hover:text-primary-600">
+                  Заказы (Admin)
+                </Link>
+                <Link href="/admin/stats" className="hover:text-primary-600">
+                  Статистика
+                </Link>
+              </>
+            )}
             <a href="#parts" className="hover:text-primary-600">
               Детали
             </a>
@@ -107,9 +124,16 @@ export default function Home() {
             <Link href="/orders" onClick={() => setOpen(false)}>
               Мои заказы
             </Link>
-            <Link href="/admin/orders" onClick={() => setOpen(false)}>
-              Заказы (Admin)
-            </Link>
+            {isAdmin && (
+              <>
+                <Link href="/admin/orders" onClick={() => setOpen(false)}>
+                  Заказы (Admin)
+                </Link>
+                <Link href="/admin/stats" onClick={() => setOpen(false)}>
+                  Статистика
+                </Link>
+              </>
+            )}
             <a href="#parts" onClick={() => setOpen(false)}>
               Детали
             </a>

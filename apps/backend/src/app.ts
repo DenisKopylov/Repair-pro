@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import authRouter from "./routes/auth.route";
 import ordersRouter from "./routes/orders.route";
+import statsRouter from "./routes/stats.route";
 
 export const createApp = () => {
   const app = express();
@@ -34,6 +35,9 @@ export const createApp = () => {
 
   // Роуты заказов
   app.use("/orders", ordersRouter);
+
+  // Статистика
+  app.use("/stats", statsRouter);
 
   return app;
 };

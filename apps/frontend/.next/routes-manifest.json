@@ -51,6 +51,12 @@
       "namedRegex": "^/admin/orders(?:/)?$"
     },
     {
+      "page": "/admin/orders/stats",
+      "regex": "^/admin/orders/stats(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/orders/stats(?:/)?$"
+    },
+    {
       "page": "/login",
       "regex": "^/login(?:/)?$",
       "routeKeys": {},

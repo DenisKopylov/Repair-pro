@@ -7,6 +7,9 @@
       "hosting": {
         "backend": [
           "repair-backend:europe-west4"
+        ],
+        "frontend": [
+          "repair-project-dbf11"
         ]
       }
     }

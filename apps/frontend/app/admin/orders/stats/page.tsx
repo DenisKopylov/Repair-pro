@@ -3,12 +3,22 @@
 import useSWR from "swr";
 import { Loader2, BarChart3 } from "lucide-react";
 
+type Stats = {
+  partTypeCounts: Record<string, number>;
+  totals: {
+    repairPrice: number;
+    defectPrice: number;
+    internalPrice: number;
+  };
+  partnerStats: Record<string, { count: number; total: number }>;
+};
+
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((r) => r.json());
 
 export default function AdminStats() {
-  const { data, isLoading } = useSWR("/stats", fetcher);
-
+  const { data, isLoading } = useSWR<Stats>("/stats", fetcher);
+  
   if (isLoading) {
     return (
       <div className="flex justify-center mt-20">

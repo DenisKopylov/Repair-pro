@@ -9,6 +9,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const auth_route_1 = __importDefault(require("./routes/auth.route"));
 const orders_route_1 = __importDefault(require("./routes/orders.route"));
+const stats_route_1 = __importDefault(require("./routes/stats.route"));
 const createApp = () => {
     const app = (0, express_1.default)();
     // ───────────────
@@ -32,6 +33,8 @@ const createApp = () => {
     app.use("/auth", auth_route_1.default);
     // Роуты заказов
     app.use("/orders", orders_route_1.default);
+    // Статистика
+    app.use("/stats", stats_route_1.default);
     return app;
 };
 exports.createApp = createApp;

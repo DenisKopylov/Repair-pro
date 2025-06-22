@@ -49,7 +49,10 @@
       "path": "/_next/image",
       "loader": "default",
       "loaderFile": "",
-      "domains": [],
+      "domains": [
+        "localhost",
+        "images.unsplash.com"
+      ],
       "disableStaticImages": false,
       "minimumCacheTTL": 60,
       "formats": [

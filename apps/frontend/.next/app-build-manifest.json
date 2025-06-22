@@ -24,47 +24,12 @@
       "static/chunks/801-103c1a617a0b9bd9.js",
       "static/chunks/app/admin/orders/page-d9a0f2f1970f7309.js"
     ],
-    "/admin/orders/[id]/page": [
-      "static/chunks/webpack-878e7299a356ff45.js",
-      "static/chunks/87c73c54-df54d741ffa99836.js",
-      "static/chunks/315-8153aac4980750f7.js",
-      "static/chunks/main-app-bf8954b2476e38f2.js",
-      "static/chunks/261-36cfba1df66e5066.js",
-      "static/chunks/801-103c1a617a0b9bd9.js",
-      "static/chunks/773-251bacc601f2fa26.js",
-      "static/chunks/app/admin/orders/[id]/page-279a3a6b5253fd7d.js"
-    ],
-    "/admin/orders/stats/page": [
-      "static/chunks/webpack-878e7299a356ff45.js",
-      "static/chunks/87c73c54-df54d741ffa99836.js",
-      "static/chunks/315-8153aac4980750f7.js",
-      "static/chunks/main-app-bf8954b2476e38f2.js",
-      "static/chunks/801-103c1a617a0b9bd9.js",
-      "static/chunks/app/admin/orders/stats/page-a5fac675a612421f.js"
-    ],
-    "/login/page": [
-      "static/chunks/webpack-878e7299a356ff45.js",
-      "static/chunks/87c73c54-df54d741ffa99836.js",
-      "static/chunks/315-8153aac4980750f7.js",
-      "static/chunks/main-app-bf8954b2476e38f2.js",
-      "static/chunks/261-36cfba1df66e5066.js",
-      "static/chunks/app/login/page-8ab1903a63cf6b96.js"
-    ],
     "/new-order/page": [
       "static/chunks/webpack-878e7299a356ff45.js",
       "static/chunks/87c73c54-df54d741ffa99836.js",
       "static/chunks/315-8153aac4980750f7.js",
       "static/chunks/main-app-bf8954b2476e38f2.js",
       "static/chunks/app/new-order/page-dcc987c9e362d4de.js"
-    ],
-    "/orders/[id]/page": [
-      "static/chunks/webpack-878e7299a356ff45.js",
-      "static/chunks/87c73c54-df54d741ffa99836.js",
-      "static/chunks/315-8153aac4980750f7.js",
-      "static/chunks/main-app-bf8954b2476e38f2.js",
-      "static/chunks/801-103c1a617a0b9bd9.js",
-      "static/chunks/773-251bacc601f2fa26.js",
-      "static/chunks/app/orders/[id]/page-f34952672216fdbe.js"
     ],
     "/orders/page": [
       "static/chunks/webpack-878e7299a356ff45.js",
@@ -84,6 +49,24 @@
       "static/chunks/773-251bacc601f2fa26.js",
       "static/chunks/app/page-f939796e0234b1e3.js"
     ],
+    "/admin/orders/stats/page": [
+      "static/chunks/webpack-878e7299a356ff45.js",
+      "static/chunks/87c73c54-df54d741ffa99836.js",
+      "static/chunks/315-8153aac4980750f7.js",
+      "static/chunks/main-app-bf8954b2476e38f2.js",
+      "static/chunks/801-103c1a617a0b9bd9.js",
+      "static/chunks/app/admin/orders/stats/page-a5fac675a612421f.js"
+    ],
+    "/admin/orders/[id]/page": [
+      "static/chunks/webpack-878e7299a356ff45.js",
+      "static/chunks/87c73c54-df54d741ffa99836.js",
+      "static/chunks/315-8153aac4980750f7.js",
+      "static/chunks/main-app-bf8954b2476e38f2.js",
+      "static/chunks/261-36cfba1df66e5066.js",
+      "static/chunks/801-103c1a617a0b9bd9.js",
+      "static/chunks/773-251bacc601f2fa26.js",
+      "static/chunks/app/admin/orders/[id]/page-279a3a6b5253fd7d.js"
+    ],
     "/register/page": [
       "static/chunks/webpack-878e7299a356ff45.js",
       "static/chunks/87c73c54-df54d741ffa99836.js",
@@ -91,6 +74,23 @@
       "static/chunks/main-app-bf8954b2476e38f2.js",
       "static/chunks/261-36cfba1df66e5066.js",
       "static/chunks/app/register/page-fc2e76848fb1cde7.js"
+    ],
+    "/orders/[id]/page": [
+      "static/chunks/webpack-878e7299a356ff45.js",
+      "static/chunks/87c73c54-df54d741ffa99836.js",
+      "static/chunks/315-8153aac4980750f7.js",
+      "static/chunks/main-app-bf8954b2476e38f2.js",
+      "static/chunks/801-103c1a617a0b9bd9.js",
+      "static/chunks/773-251bacc601f2fa26.js",
+      "static/chunks/app/orders/[id]/page-f34952672216fdbe.js"
+    ],
+    "/login/page": [
+      "static/chunks/webpack-878e7299a356ff45.js",
+      "static/chunks/87c73c54-df54d741ffa99836.js",
+      "static/chunks/315-8153aac4980750f7.js",
+      "static/chunks/main-app-bf8954b2476e38f2.js",
+      "static/chunks/261-36cfba1df66e5066.js",
+      "static/chunks/app/login/page-8ab1903a63cf6b96.js"
     ]
   }
 }

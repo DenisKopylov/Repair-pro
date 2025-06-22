@@ -1,9 +1,9 @@
 "use strict";
 
 // apps/frontend/next.config.js
-var nextConfig = {
+module.exports = {
+  // убираем output: 'export' и distDir
   images: {
     domains: ["localhost", "images.unsplash.com"]
   }
 };
-module.exports = nextConfig;

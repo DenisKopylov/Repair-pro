@@ -26,18 +26,17 @@ export const createApp = () => {
 
   app.use(express.json());
 
-  // Простейшие health-checks
-  app.get("/health",  (_req, res) => res.json({ status: "ok" }));
+  // Собираем все API-роуты под /api
+  const api = express.Router();
+  api.use("/auth", authRouter);
+  api.use("/orders", ordersRouter);
+  api.use("/stats", statsRouter);
+
+  app.use("/api", api);
+
+  // Health-checks (если надо, можно добавить /api/health здесь)
+  app.get("/health", (_req, res) => res.json({ status: "ok" }));
   app.get("/healthz", (_req, res) => res.sendStatus(200));
-
-  // Роуты аутентификации
-  app.use("/auth", authRouter);
-
-  // Роуты заказов
-  app.use("/orders", ordersRouter);
-
-  // Статистика
-  app.use("/stats", statsRouter);
 
   return app;
 };

@@ -1,0 +1,18 @@
+// apps/backend/tsconfig.jest.json
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      // Переписываем rootDir, чтобы сюда попали и тесты
+      "rootDir": ".",
+      // Отдельная папка вывода (не обязательно)
+      "outDir": "dist_test"
+    },
+    // Говорим tsc (и ts-jest), где искать файлы для компиляции
+    "include": [
+      "src/**/*",
+      "tests/**/*",
+      "jest.config.ts"
+    ],
+    // node_modules исключены по умолчанию из родительского tsconfig
+    "exclude": []
+  }

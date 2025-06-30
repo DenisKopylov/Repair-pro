@@ -13,10 +13,12 @@
     "build": "npm run build --workspaces"
   },
   "dependencies": {
-    "firebase": "^11.8.1"
+    "firebase": "^11.8.1",
+    "superagent": "^9.0.2"
   },
   "devDependencies": {
     "@types/react": "^19.1.6",
-    "esbuild": "^0.25.5"
+    "esbuild": "^0.25.5",
+    "jest": "^30.0.3"
   }
 }

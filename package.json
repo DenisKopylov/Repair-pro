@@ -10,7 +10,8 @@
   "scripts": {
     "dev:backend": "npm run dev --workspace=@auto-parts/backend",
     "dev:frontend": "npm run dev --workspace=@auto-parts/frontend",
-    "build": "npm run build --workspaces"
+    "build": "npm run build --workspaces",
+    "test:e2e": "npm run test --workspace=@auto-parts/backend"
   },
   "dependencies": {
     "firebase": "^11.8.1",

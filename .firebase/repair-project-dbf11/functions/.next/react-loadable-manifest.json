@@ -2,15 +2,17 @@
   "app/new-order/page.tsx -> ../../firebaseConfig": {
     "id": 8611,
     "files": [
-      "static/chunks/435.16efc44bf7356f7b.js",
-      "static/chunks/288.cc47d99271001e6b.js",
-      "static/chunks/611.110f5ef934b0b60c.js"
+      "static/chunks/48f35196.f6154c58ed386fbb.js",
+      "static/chunks/14aeac6e.b466cf0244704d70.js",
+      "static/chunks/435.5f83db51c4c45fff.js",
+      "static/chunks/373.a8f5cc9f51266932.js",
+      "static/chunks/611.ebb293c8807fc0f5.js"
     ]
   },
   "app/new-order/page.tsx -> firebase/storage": {
     "id": 5435,
     "files": [
-      "static/chunks/435.16efc44bf7356f7b.js"
+      "static/chunks/435.5f83db51c4c45fff.js"
     ]
   }
 }

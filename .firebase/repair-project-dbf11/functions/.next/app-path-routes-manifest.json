@@ -1,12 +1,12 @@
 {
   "/_not-found/page": "/_not-found",
-  "/admin/orders/[id]/page": "/admin/orders/[id]",
   "/admin/orders/page": "/admin/orders",
   "/admin/orders/stats/page": "/admin/orders/stats",
-  "/login/page": "/login",
+  "/admin/orders/[id]/page": "/admin/orders/[id]",
   "/new-order/page": "/new-order",
   "/orders/[id]/page": "/orders/[id]",
   "/orders/page": "/orders",
   "/page": "/",
-  "/register/page": "/register"
+  "/register/page": "/register",
+  "/login/page": "/login"
 }

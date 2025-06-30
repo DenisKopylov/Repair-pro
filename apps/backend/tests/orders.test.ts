@@ -3,14 +3,14 @@ import { createApp } from '../src/app';
 import * as OrderModel from '../src/models/Order';
 import jwt from 'jsonwebtoken';
 
-jest.mock('../src/models/Order');
-
 const app = createApp();
 const ENDPOINT = '/api/orders';
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
 
 const userToken = jwt.sign({ _id: 'u1', role: 'USER', name: 'User1' }, JWT_SECRET);
 const adminToken = jwt.sign({ _id: 'admin', role: 'ADMIN', name: 'Admin' }, JWT_SECRET);
+
+jest.mock('../src/models/Order');
 
 describe('Orders routes', () => {
   beforeEach(() => {

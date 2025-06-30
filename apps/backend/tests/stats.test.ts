@@ -5,13 +5,13 @@ import jwt from 'jsonwebtoken';
 const getMock = jest.fn();
 const collectionMock = jest.fn(() => ({ get: getMock }));
 
-jest.mock('../src/lib/db', () => ({ db: { collection: collectionMock } }));
-
 const app = createApp();
 const ENDPOINT = '/api/stats';
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
 const adminToken = jwt.sign({ _id: 'admin', role: 'ADMIN', name: 'Admin' }, JWT_SECRET);
 const userToken = jwt.sign({ _id: 'u1', role: 'USER', name: 'User' }, JWT_SECRET);
+
+jest.mock('../src/lib/db', () => ({ db: { collection: collectionMock } }));
 
 describe('GET ' + ENDPOINT, () => {
   beforeEach(() => {

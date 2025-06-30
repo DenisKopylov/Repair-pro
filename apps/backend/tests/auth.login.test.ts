@@ -4,11 +4,12 @@ import * as UserModel from '../src/models/User';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-jest.mock('../src/models/User');
-
 const app = createApp();
 const ENDPOINT = '/api/auth/login';
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
+
+jest.mock('../src/models/User');
+
 
 describe('POST ' + ENDPOINT, () => {
   beforeEach(() => {

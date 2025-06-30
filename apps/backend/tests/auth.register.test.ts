@@ -3,10 +3,10 @@ import { createApp } from '../src/app';
 import * as UserModel from '../src/models/User';
 import bcrypt from 'bcrypt';
 
-jest.mock('../src/models/User');
-
 const app = createApp();
 const ENDPOINT = '/api/auth/register';
+
+jest.mock('../src/models/User');
 
 describe('POST ' + ENDPOINT, () => {
   beforeEach(() => {

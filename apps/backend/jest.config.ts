@@ -8,11 +8,10 @@ const config: Config = {
   // Пути до тестов
   testMatch: ['**/tests/**/*.test.ts'],
 
-  globals: {
-    'ts-jest': {
-      // Указываем Jest-у, какой tsconfig брать
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
       tsconfig: '<rootDir>/tsconfig.jest.json'
-    }
+    }]
   },
 
   moduleFileExtensions: ['ts', 'js', 'json'],

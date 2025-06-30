@@ -2,6 +2,9 @@ process.env.FIRESTORE_EMULATOR_HOST = process.env.FIRESTORE_EMULATOR_HOST || '12
 process.env.FIREBASE_AUTH_EMULATOR_HOST = process.env.FIREBASE_AUTH_EMULATOR_HOST || '127.0.0.1:9099';
 process.env.GCLOUD_PROJECT = process.env.GCLOUD_PROJECT || 'demo-test';
 
+// Integration tests with the Firestore emulator can take longer
+jest.setTimeout(20_000);
+
 import request from 'supertest';
 import { getFirestore } from 'firebase-admin/firestore';
 import { createApp } from '../src/app';
@@ -43,4 +46,9 @@ describe('Integration with Firestore emulator', () => {
     expect(doc.exists).toBe(true);
     expect(doc.data()?.partType).toBe(orderPayload.partType);
   });
+});
+
+afterAll(async () => {
+  await (app as any).close?.();
+  await db.terminate();
 });

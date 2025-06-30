@@ -1,17 +1,23 @@
+// Declare mocks using var so they are available for the mock factory
+var getMock: jest.Mock;
+var collectionMock: jest.Mock;
+
+// Mock the database module before importing the app
+jest.mock('../src/lib/db', () => {
+  getMock = jest.fn();
+  collectionMock = jest.fn(() => ({ get: getMock }));
+  return { db: { collection: collectionMock } };
+});
+
 import request from 'supertest';
 import { createApp } from '../src/app';
 import jwt from 'jsonwebtoken';
-
-const getMock = jest.fn();
-const collectionMock = jest.fn(() => ({ get: getMock }));
 
 const app = createApp();
 const ENDPOINT = '/api/stats';
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
 const adminToken = jwt.sign({ _id: 'admin', role: 'ADMIN', name: 'Admin' }, JWT_SECRET);
 const userToken = jwt.sign({ _id: 'u1', role: 'USER', name: 'User' }, JWT_SECRET);
-
-jest.mock('../src/lib/db', () => ({ db: { collection: collectionMock } }));
 
 describe('GET ' + ENDPOINT, () => {
   beforeEach(() => {

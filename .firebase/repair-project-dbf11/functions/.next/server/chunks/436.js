@@ -1,0 +1,1 @@
+"use strict";exports.id=436,exports.ids=[436],exports.modules={71436:(e,t,r)=>{function s(e,t={}){let r=new Headers(t.headers);return fetch("https://repair-project-dbf11.web.app/api"+e,{...t,headers:r})}r.r(t),r.d(t,{fetchWithAuth:()=>s})}};

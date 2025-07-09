@@ -7,6 +7,6 @@
   "/new-order/page": "/new-order",
   "/orders/[id]/page": "/orders/[id]",
   "/orders/page": "/orders",
-  "/page": "/",
-  "/register/page": "/register"
+  "/register/page": "/register",
+  "/page": "/"
 }

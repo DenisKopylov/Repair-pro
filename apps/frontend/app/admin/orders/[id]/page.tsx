@@ -16,7 +16,9 @@ import {
 } from "lucide-react";
 
 const fetcher = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((r) => r.json());
+  import("../../../../lib/fetchWithAuth").then(({ fetchWithAuth }) =>
+    fetchWithAuth(url, { cache: "no-store" }).then((r) => r.json())
+  );
 
 export default function AdminOrderEdit() {
   const { id } = useParams<{ id: string }>();
@@ -41,7 +43,8 @@ export default function AdminOrderEdit() {
   }, [order]);
 
   const save = async () => {
-    await fetch(`/orders/${id}`, {
+    const { fetchWithAuth } = await import("../../../../lib/fetchWithAuth");
+    await fetchWithAuth(`/orders/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

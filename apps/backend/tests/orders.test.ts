@@ -1,20 +1,25 @@
 import request from 'supertest';
 import { createApp } from '../src/app';
 import * as OrderModel from '../src/models/Order';
-import jwt from 'jsonwebtoken';
+import { getAuth } from 'firebase-admin/auth';
+
+const verifyMock = jest.fn();
+jest.mock('firebase-admin/auth', () => ({
+  getAuth: () => ({ verifyIdToken: verifyMock })
+}));
 
 const app = createApp();
 const ENDPOINT = '/api/orders';
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
 
-const userToken = jwt.sign({ _id: 'u1', role: 'USER', name: 'User1' }, JWT_SECRET);
-const adminToken = jwt.sign({ _id: 'admin', role: 'ADMIN', name: 'Admin' }, JWT_SECRET);
+const userToken = 'userToken';
+const adminToken = 'adminToken';
 
 jest.mock('../src/models/Order');
 
 describe('Orders routes', () => {
   beforeEach(() => {
     jest.resetAllMocks();
+    verifyMock.mockReset();
   });
 
   describe('POST ' + ENDPOINT, () => {
@@ -24,6 +29,7 @@ describe('Orders routes', () => {
         ...data,
       }));
 
+      verifyMock.mockResolvedValueOnce({ uid: 'u1', role: 'USER', name: 'User1' });
       const payload = { partType: 'Wheel', description: 'desc', images: [] };
       const res = await request(app)
         .post(ENDPOINT)
@@ -51,6 +57,7 @@ describe('Orders routes', () => {
     it('\u2705 200 | owner can read order', async () => {
       (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', userId: 'u1' });
 
+      verifyMock.mockResolvedValueOnce({ uid: 'u1', role: 'USER', name: 'User1' });
       const res = await request(app)
         .get(`${ENDPOINT}/o1`)
         .set('Authorization', `Bearer ${userToken}`);
@@ -61,6 +68,7 @@ describe('Orders routes', () => {
     it('\u2705 200 | admin can read any order', async () => {
       (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', userId: 'u2' });
 
+      verifyMock.mockResolvedValueOnce({ uid: 'admin', role: 'ADMIN', name: 'Admin' });
       const res = await request(app)
         .get(`${ENDPOINT}/o1`)
         .set('Authorization', `Bearer ${adminToken}`);
@@ -71,6 +79,7 @@ describe('Orders routes', () => {
     it('\u274c 403 | foreign user forbidden', async () => {
       (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', userId: 'u2' });
 
+      verifyMock.mockResolvedValueOnce({ uid: 'u1', role: 'USER', name: 'User1' });
       const res = await request(app)
         .get(`${ENDPOINT}/o1`)
         .set('Authorization', `Bearer ${userToken}`);
@@ -81,6 +90,7 @@ describe('Orders routes', () => {
     it('\u274c 404 | not found', async () => {
       (OrderModel.getOrder as jest.Mock).mockResolvedValue(null);
 
+      verifyMock.mockResolvedValueOnce({ uid: 'u1', role: 'USER', name: 'User1' });
       const res = await request(app)
         .get(`${ENDPOINT}/missing`)
         .set('Authorization', `Bearer ${userToken}`);

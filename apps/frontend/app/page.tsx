@@ -48,12 +48,14 @@ export default function Home() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      setIsAdmin(payload.role === "ADMIN");
-    } catch {}
+    const { onAuthStateChanged } = require("firebase/auth");
+    const { auth } = require("../firebaseConfig");
+    const unsub = onAuthStateChanged(auth, async (user: any) => {
+      if (!user) return;
+      const result = await user.getIdTokenResult();
+      setIsAdmin(result.claims.role === "ADMIN");
+    });
+    return unsub;
   }, []);
 
   return (

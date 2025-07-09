@@ -1,16 +1,14 @@
 // apps/backend/src/middlewares/auth.ts
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { getAuth as getAdminAuth } from 'firebase-admin/auth';
 
-const JWT_SECRET = process.env.JWT_SECRET || "dev-secret";
-
-export function auth(req: any, res: Response, next: NextFunction) {
+export async function auth(req: any, res: Response, next: NextFunction) {
   const header = req.headers.authorization || "";
-  const token  = header.replace("Bearer ", "");
+  const token = header.startsWith("Bearer ") ? header.substring(7) : null;
   if (!token) return res.status(401).json({ error: "no token" });
 
   try {
-    req.user = jwt.verify(token, JWT_SECRET);   // { _id, role, name }
+    req.user = await getAdminAuth().verifyIdToken(token);
     next();
   } catch {
     res.status(401).json({ error: "bad token" });

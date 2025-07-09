@@ -14,7 +14,9 @@ type Stats = {
 };
 
 const fetcher = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((r) => r.json());
+  import("../../../../lib/fetchWithAuth").then(({ fetchWithAuth }) =>
+    fetchWithAuth(url, { cache: "no-store" }).then((r) => r.json())
+  );
 
 export default function AdminStats() {
   const { data, isLoading } = useSWR<Stats>("/stats", fetcher);

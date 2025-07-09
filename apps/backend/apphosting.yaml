@@ -33,8 +33,3 @@ env:
   - variable: FRONTEND_ORIGINS
     value: "http://localhost:3000,https://repair-project-dbf11.web.app,https://repair-project-dbf11.firebaseapp.com"
     availability: [RUNTIME]
-
-  # ───────── Секреты (Cloud Secret Manager)
-  - variable: JWT_SECRET
-    secret: jwt-secret          # ⚠️ Создайте `jwt-secret` в Secret Manager, если ещё нет
-    availability: [RUNTIME]

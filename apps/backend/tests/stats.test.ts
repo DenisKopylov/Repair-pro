@@ -11,18 +11,21 @@ jest.mock('../src/lib/db', () => {
 
 import request from 'supertest';
 import { createApp } from '../src/app';
-import jwt from 'jsonwebtoken';
+const verifyMock = jest.fn();
+jest.mock('firebase-admin/auth', () => ({
+  getAuth: () => ({ verifyIdToken: verifyMock })
+}));
 
 const app = createApp();
 const ENDPOINT = '/api/stats';
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
-const adminToken = jwt.sign({ _id: 'admin', role: 'ADMIN', name: 'Admin' }, JWT_SECRET);
-const userToken = jwt.sign({ _id: 'u1', role: 'USER', name: 'User' }, JWT_SECRET);
+const adminToken = 'adminToken';
+const userToken = 'userToken';
 
 describe('GET ' + ENDPOINT, () => {
   beforeEach(() => {
     getMock.mockReset();
     collectionMock.mockClear();
+    verifyMock.mockReset();
   });
 
   it('\u2705 200 | returns statistics for admin', async () => {
@@ -32,6 +35,7 @@ describe('GET ' + ENDPOINT, () => {
     ];
     getMock.mockResolvedValue({ forEach: (cb: any) => docs.forEach(d => cb(d)) });
 
+    verifyMock.mockResolvedValueOnce({ uid: 'admin', role: 'ADMIN', name: 'Admin' });
     const res = await request(app)
       .get(ENDPOINT)
       .set('Authorization', `Bearer ${adminToken}`);
@@ -43,6 +47,7 @@ describe('GET ' + ENDPOINT, () => {
   });
 
   it('\u274c 403 | user is not admin', async () => {
+    verifyMock.mockResolvedValueOnce({ uid: 'u1', role: 'USER', name: 'User' });
     const res = await request(app)
       .get(ENDPOINT)
       .set('Authorization', `Bearer ${userToken}`);
@@ -53,6 +58,7 @@ describe('GET ' + ENDPOINT, () => {
   it('\u274c 500 | on db error', async () => {
     getMock.mockRejectedValue(new Error('fail'));
 
+    verifyMock.mockResolvedValueOnce({ uid: 'admin', role: 'ADMIN', name: 'Admin' });
     const res = await request(app)
       .get(ENDPOINT)
       .set('Authorization', `Bearer ${adminToken}`);

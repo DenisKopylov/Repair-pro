@@ -85,7 +85,8 @@ export default function NewOrder() {
 
     // Создание заказа на бэкенде
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
+      const { fetchWithAuth } = await import("../../lib/fetchWithAuth");
+      const res = await fetchWithAuth("/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

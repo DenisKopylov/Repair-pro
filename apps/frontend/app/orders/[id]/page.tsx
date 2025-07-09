@@ -7,7 +7,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Loader2, CircleCheck, XCircle } from "lucide-react";
 
-const fetcher = (url: string) => fetch(url, { cache: "no-store" }).then((r) => r.json());
+const fetcher = (url: string) =>
+  import("../../../lib/fetchWithAuth").then(({ fetchWithAuth }) =>
+    fetchWithAuth(url, { cache: "no-store" }).then((r) => r.json())
+  );
 
 /** Перевод статусов на русский язык */
 function statusRu(code: string) {
@@ -39,7 +42,8 @@ export default function OrderDetails() {
 
   const accept = async (ok: boolean) => {
     setLoadingAction(true);
-    await fetch(`/orders/${id}/confirm`, {
+    const { fetchWithAuth } = await import("../../../lib/fetchWithAuth");
+    await fetchWithAuth(`/orders/${id}/confirm`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ok }),

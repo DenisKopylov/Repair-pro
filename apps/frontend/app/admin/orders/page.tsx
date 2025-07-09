@@ -16,7 +16,9 @@ import {
 } from "lucide-react";
 
 const fetcher = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((r) => r.json());
+  import("../../../lib/fetchWithAuth").then(({ fetchWithAuth }) =>
+    fetchWithAuth(url, { cache: "no-store" }).then((r) => r.json())
+  );
 
 /** Цвет бейджа по статусу */
 const badgeColor: Record<string, string> = {

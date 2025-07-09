@@ -1,7 +1,6 @@
 // apps/backend/src/app.ts
 import express from "express";
 import cors from "cors";
-import authRouter from "./routes/auth.route";
 import ordersRouter from "./routes/orders.route";
 import statsRouter from "./routes/stats.route";
 
@@ -28,7 +27,6 @@ export const createApp = () => {
 
   // Собираем все API-роуты под /api
   const api = express.Router();
-  api.use("/auth", authRouter);
   api.use("/orders", ordersRouter);
   api.use("/stats", statsRouter);
 
@@ -38,5 +36,4 @@ export const createApp = () => {
   app.get("/health", (_req, res) => res.json({ status: "ok" }));
   app.get("/healthz", (_req, res) => res.sendStatus(200));
 
-  return app;
-};
+  return app;};

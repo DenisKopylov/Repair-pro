@@ -1,59 +1,68 @@
 // apps/backend/src/routes/orders.route.ts
 
 import { Router } from 'express';
+import eh from 'express-async-handler';
 import { auth, requireAdmin } from '../middlewares/auth';
-import { createOrder, getOrder, updateOrder, listOrders } from '../models/Order';
+import {
+  listOrders,
+  createOrder,
+  getOrder,
+  updateOrder,
+} from '../models/Order';
+
 const router = Router();
+
+/* ─────────────── Helpers ─────────────── */
 
 function buildFilter(req: any) {
   const isAdmin = req.user?.role === 'ADMIN' && req.query.all === 'true';
   const uid = req.user?.uid;
   const filter: any = isAdmin ? {} : { uid };
 
-
-  if (req.query.search) {
-    const s = String(req.query.search).trim();
-    filter.clientName = s;
-  }
-
-  if (req.query.status) filter.status = req.query.status;
-  if (req.query.partType) filter.partType = req.query.partType;
-  if (req.query.from) filter.from = new Date(String(req.query.from));
-  if (req.query.to) filter.to = new Date(String(req.query.to));
+  if (req.query.search)   filter.clientName = String(req.query.search).trim();
+  if (req.query.status)   filter.status     = req.query.status;
+  if (req.query.partType) filter.partType   = req.query.partType;
+  if (req.query.from)     filter.from       = new Date(String(req.query.from));
+  if (req.query.to)       filter.to         = new Date(String(req.query.to));
 
   return filter;
 }
 
-router.get('/', auth, async (req: any, res) => {
-  try {
-    // 1) Построим фильтр через helper
+/* ─────────────── Routes ─────────────── */
+
+// GET /api/orders
+router.get(
+  '/',
+  auth,
+  eh(async (req, res) => {
     const filter = buildFilter(req);
 
-    let sortField = 'createdAt';
+    let sortField: 'createdAt' | 'repairPrice' = 'createdAt';
     let sortDir: 'asc' | 'desc' = 'desc';
     switch (req.query.sort) {
-       case 'dateAsc':
+      case 'dateAsc':
         sortDir = 'asc';
         break;
-        case 'priceAsc':
-          sortField = 'repairPrice';
-          sortDir = 'asc';
+      case 'priceAsc':
+        sortField = 'repairPrice';
+        sortDir   = 'asc';
         break;
-        case 'priceDesc':
+      case 'priceDesc':
         sortField = 'repairPrice';
         break;
     }
+
     const orders = await listOrders(filter, sortField, sortDir);
     res.json(orders);
-  } catch (err) {
-    console.error('GET /orders error:', err);
-    res.status(500).json({ error: 'server error' });
-  }
-});
+  })
+);
 
-router.post('/', auth, async (req: any, res) => {
-  try {
-    const uid = req.user.uid;
+// POST /api/orders
+router.post(
+  '/',
+  auth,
+  eh(async (req, res) => {
+    const uid        = req.user.uid;
     const clientName = req.user.name ?? req.user.email;
     const { partType, description, images } = req.body;
 
@@ -67,72 +76,96 @@ router.post('/', auth, async (req: any, res) => {
     });
 
     res.status(201).json(newOrder);
-  } catch (err) {
-    console.error('POST /orders error:', err);
-    res.status(500).json({ error: 'server error' });
-  }
-});
+  })
+);
 
-router.get('/:id', auth, async (req: any, res) => {
-  try {
+// GET /api/orders/:id
+router.get(
+  '/:id',
+  auth,
+  eh(async (req, res) => {
     const { id } = req.params;
-    const order = await getOrder(id);
-    if (!order) return res.sendStatus(404);
+    const order  = await getOrder(id);
+    if (!order) {
+      res.sendStatus(404);
+      return;
+    }
 
     if (req.user.role !== 'ADMIN' && String(order.uid) !== String(req.user.uid)) {
-      return res.status(403).json({ error: 'forbidden' });
+      res.status(403).json({ error: 'forbidden' });
+      return;
     }
-    res.json(order);
-  } catch (err) {
-    console.error(`GET /orders/${req.params.id} error:`, err);
-    res.status(500).json({ error: 'server error' });
-  }
-});
 
-router.patch('/:id', auth, requireAdmin, async (req, res) => {
-  try {
+    res.json(order);
+  })
+);
+
+// PATCH /api/orders/:id  (админ предлагает цену)
+router.patch(
+  '/:id',
+  auth,
+  requireAdmin,
+  eh(async (req, res) => {
     const { id } = req.params;
     const { defectPrice, repairPrice, workHours } = req.body;
-    const updated = await updateOrder(id, { defectPrice, repairPrice, workHours, status: 'OFFERED' });
-    if (!updated) return res.sendStatus(404);
-    res.json(updated);
-  } catch (err) {
-    console.error(`PATCH /orders/${req.params.id} error:`, err);
-    res.status(500).json({ error: 'server error' });
-  }
-});
 
-router.post('/:id/confirm', auth, async (req: any, res) => {
-  try {
-    const { id } = req.params;
-    const order = await getOrder(id);
-    if (!order) return res.sendStatus(404);
+    const updated = await updateOrder(id, {
+      defectPrice,
+      repairPrice,
+      workHours,
+      status: 'OFFERED',
+    });
 
-    if (String(order.uid) !== String(req.user.uid)) {
-      return res.status(403).json({ error: 'forbidden' });
+    if (!updated) {
+      res.sendStatus(404);
+      return;
     }
 
-    const ok = req.body.ok === true;
-    const newStatus = ok ? 'CONFIRMED' : 'DECLINED';
-    const updated = await updateOrder(id, { status: newStatus });
     res.json(updated);
-  } catch (err) {
-    console.error(`POST /orders/${req.params.id}/confirm error:`, err);
-    res.status(500).json({ error: 'server error' });
-  }
-});
+  })
+);
 
-router.put('/:id', auth, requireAdmin, async (req, res) => {
-  try {
+// POST /api/orders/:id/confirm  (клиент принимает/отклоняет)
+router.post(
+  '/:id/confirm',
+  auth,
+  eh(async (req, res) => {
+    const { id } = req.params;
+    const order  = await getOrder(id);
+    if (!order) {
+      res.sendStatus(404);
+      return;
+    }
+
+    if (String(order.uid) !== String(req.user.uid)) {
+      res.status(403).json({ error: 'forbidden' });
+      return;
+    }
+
+    const ok        = req.body.ok === true;
+    const newStatus = ok ? 'CONFIRMED' : 'DECLINED';
+    const updated   = await updateOrder(id, { status: newStatus });
+
+    res.json(updated);
+  })
+);
+
+// PUT /api/orders/:id  (админ обновляет произвольные поля)
+router.put(
+  '/:id',
+  auth,
+  requireAdmin,
+  eh(async (req, res) => {
     const { id } = req.params;
     const updated = await updateOrder(id, req.body);
-    if (!updated) return res.sendStatus(404);
+
+    if (!updated) {
+      res.sendStatus(404);
+      return;
+    }
 
     res.json(updated);
-  } catch (err) {
-    console.error(`PUT /orders/${req.params.id} error:`, err);
-    res.status(500).json({ error: 'server error' });
-  }
-});
+  })
+);
 
 export default router;

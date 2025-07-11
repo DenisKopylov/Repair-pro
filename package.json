@@ -14,11 +14,14 @@
     "test:e2e": "npm run test --workspace=@auto-parts/backend"
   },
   "dependencies": {
+    "express-async-handler": "^1.2.0",
     "firebase": "^11.8.1",
     "superagent": "^9.0.2"
   },
   "devDependencies": {
+    "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.13",
     "@types/react": "^19.1.6",
     "esbuild": "^0.25.5",
     "jest": "^30.0.3",

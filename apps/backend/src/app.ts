@@ -1,5 +1,5 @@
 // apps/backend/src/app.ts
-import express from "express";
+import express, { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 import cors from "cors";
 import ordersRouter from "./routes/orders.route";
 import statsRouter from "./routes/stats.route";
@@ -36,4 +36,16 @@ export const createApp = () => {
   app.get("/health", (_req, res) => res.json({ status: "ok" }));
   app.get("/healthz", (_req, res) => res.sendStatus(200));
 
-  return app;};
+  // *** ГЛОБАЛЬНЫЙ ОБРАБОТЧИК ОШИБОК ***
+  const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+    console.error(`[ERROR] ${req.method} ${req.originalUrl}`, err.stack || err);
+    res.status((err as any).status || 500).json({
+      error: (err as any).message || "server error",
+    });
+  };
+
+  // регистрируем именно ErrorRequestHandler
+  app.use(errorHandler);
+
+  return app;
+};

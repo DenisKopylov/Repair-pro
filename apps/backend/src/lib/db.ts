@@ -13,3 +13,6 @@ if (process.env.FIRESTORE_EMULATOR_HOST) {
   }
   
 export const db = getFirestore();
+
+// залючаємо ігнорування undefined для Firestore
+db.settings({ ignoreUndefinedProperties: true });

@@ -8,10 +8,20 @@ export async function auth(req: any, res: Response, next: NextFunction) {
   if (!token) return res.status(401).json({ error: "no token" });
 
   try {
-    req.user = await getAdminAuth().verifyIdToken(token);
-    next();
-  } catch {
-    res.status(401).json({ error: "bad token" });
+  const decoded = await getAdminAuth().verifyIdToken(token);
+
+  // адаптуємо payload до старої схеми
+  req.user = {
+    _id: decoded.uid,
+    name: decoded.name || decoded.email || 'No name',
+    role: decoded.role || 'CLIENT',
+    ...decoded,
+  };
+
+  return next();
+} catch (e) {
+  console.error('verifyIdToken error', e);
+  return res.status(401).json({ error: 'bad token' });
   }
 }
 

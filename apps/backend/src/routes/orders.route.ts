@@ -7,7 +7,7 @@ const router = Router();
 
 function buildFilter(req: any) {
   const isAdmin = req.user?.role === 'ADMIN' && req.query.all === 'true';
-  const userId = req.user?._id;
+  const userId = req.user?._id || req.user?.uid;
   const filter: any = isAdmin ? {} : { userId };
 
   if (req.query.search) {
@@ -52,8 +52,8 @@ router.get('/', auth, async (req: any, res) => {
 
 router.post('/', auth, async (req: any, res) => {
   try {
-    const userId = req.user._id;
-    const clientName = req.user.name || req.user.email || 'Unknown';
+    const userId = req.user._id || req.user.uid;
+    const clientName = req.user.name ?? req.user.email;
     const { partType, description, images } = req.body;
 
     const newOrder = await createOrder({
@@ -78,7 +78,7 @@ router.get('/:id', auth, async (req: any, res) => {
     const order = await getOrder(id);
     if (!order) return res.sendStatus(404);
 
-    if (req.user.role !== 'ADMIN' && String(order.userId) !== String(req.user._id)) {
+    if (req.user.role !== 'ADMIN' && String(order.userId) !== String(req.user._id || req.user.uid)) {
       return res.status(403).json({ error: 'forbidden' });
     }
     res.json(order);

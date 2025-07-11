@@ -2,6 +2,7 @@ export type UserRole = 'CLIENT' | 'CONTRACTOR' | 'ADMIN';
 
 export interface OrderDTO {
   id?: string;
+  uid?: string;
   partType: string;
   description: string;
   status?: 'NEW' | 'IN_PROGRESS' | 'DONE';

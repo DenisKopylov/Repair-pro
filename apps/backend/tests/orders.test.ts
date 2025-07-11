@@ -38,7 +38,7 @@ describe('Orders routes', () => {
 
       expect(res.status).toBe(201);
       expect(OrderModel.createOrder).toHaveBeenCalledWith({
-        userId: 'u1',
+        uid: 'u1',
         clientName: 'User1',
         partType: 'Wheel',
         description: 'desc',
@@ -55,7 +55,7 @@ describe('Orders routes', () => {
 
   describe('GET ' + ENDPOINT + '/:id', () => {
     it('\u2705 200 | owner can read order', async () => {
-      (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', userId: 'u1' });
+      (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', uid: 'u1' });
 
       verifyMock.mockResolvedValueOnce({ uid: 'u1', role: 'USER', name: 'User1' });
       const res = await request(app)
@@ -66,7 +66,7 @@ describe('Orders routes', () => {
     });
 
     it('\u2705 200 | admin can read any order', async () => {
-      (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', userId: 'u2' });
+      (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', uid: 'u2' });
 
       verifyMock.mockResolvedValueOnce({ uid: 'admin', role: 'ADMIN', name: 'Admin' });
       const res = await request(app)
@@ -77,7 +77,7 @@ describe('Orders routes', () => {
     });
 
     it('\u274c 403 | foreign user forbidden', async () => {
-      (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', userId: 'u2' });
+      (OrderModel.getOrder as jest.Mock).mockResolvedValue({ id: 'o1', uid: 'u2' });
 
       verifyMock.mockResolvedValueOnce({ uid: 'u1', role: 'USER', name: 'User1' });
       const res = await request(app)

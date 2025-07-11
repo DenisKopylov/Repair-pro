@@ -11,7 +11,7 @@ export type OrderStatus =
 
 export interface IOrder {
   id?: string;
-  userId: string;
+  uid: string;
   clientName: string;
   partType: string;
   description: string;
@@ -49,7 +49,7 @@ export async function updateOrder(id: string, data: Partial<IOrder>): Promise<IO
 
 export async function listOrders(filter: any, sortField: string, sortDir: 'asc' | 'desc'): Promise<IOrder[]> {
   let q: FirebaseFirestore.Query = collection;
-  if (filter.userId) q = q.where('userId', '==', filter.userId);
+  if (filter.uid) q = q.where('uid', '==', filter.uid);
   if (filter.status) q = q.where('status', '==', filter.status);
   if (filter.partType) q = q.where('partType', '==', filter.partType);
   if (filter.clientName) q = q.where('clientName', '>=', filter.clientName).where('clientName', '<=', filter.clientName + '\uf8ff');

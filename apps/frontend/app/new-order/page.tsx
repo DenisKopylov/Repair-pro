@@ -18,6 +18,12 @@ export default function NewOrder() {
   const [description, setDescription] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [lastSent, setLastSent] = useState<{
+    partType: string;
+    description: string;
+    fileName: string;
+  } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Обработчики drag & drop
@@ -44,9 +50,36 @@ export default function NewOrder() {
     }
   };
 
+  const lastSentEqual =
+    lastSent &&
+    lastSent.partType === partType &&
+    lastSent.description === description &&
+    lastSent.fileName === (file?.name || "");
+
+  const missingFieldMessage = !partType
+    ? "Выберите тип детали"
+    : !file
+    ? "Загрузите фото детали"
+    : !description
+    ? "Добавьте описание"
+    : "";
+
+  const disabledReason =
+    missingFieldMessage ||
+    (lastSentEqual ? "Измените данные, чтобы отправить новый заказ" : "");
+
   // Отправка формы (шаг 1 – далее будет многошаговый процесс)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (disabledReason) {
+      alert(disabledReason);
+      return;
+    }
+    if (lastSentEqual) {
+      // дополнительная проверка на случай изменения состояния
+      alert("Измените данные, чтобы отправить новый заказ");
+      return;
+    }
     if (!partType) {
       alert("Пожалуйста, выберите тип детали.");
       return;
@@ -56,6 +89,7 @@ export default function NewOrder() {
       return;
     }
     setUploading(true);
+    setSuccess(false);
 
     // Загрузка фото в Firebase Storage
     let imageUrl = "";
@@ -96,10 +130,17 @@ export default function NewOrder() {
         }),
       });
       if (!res.ok) throw new Error("Ошибка сервера");
-      router.push("/orders");
+      setSuccess(true);
+      setLastSent({
+        partType,
+        description,
+        fileName: file?.name || "",
+      });
+      setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
       console.error(err);
       alert("Не удалось создать заказ. Попробуйте позже.");
+      setSuccess(false);
     } finally {
       setUploading(false);
     }
@@ -139,22 +180,25 @@ export default function NewOrder() {
               Тип детали
             </label>
             <select
-              id="partType"
-              value={partType}
-              onChange={(e) => setPartType(e.target.value)}
-              className="w-full bg-stone-100 rounded-md border border-transparent focus:border-primary-500 focus:ring-0 px-4 py-3 text-sm text-stone-700"
-            >
-              <option value="">Выберите тип детали</option>
-              <option>Генератор</option>
-              <option>Стартер</option>
-              <option>Топливный насос</option>
-              <option>Форсунки</option>
-              <option>Гидрораспределитель</option>
-              <option>Гидроцилиндр</option>
-              <option>Гидронасос</option>
-              <option>Гидромотор</option>
-            </select>
-          </div>
+            id="partType"
+            value={partType}
+            onChange={(e) => setPartType(e.target.value)}
+            className="w-full bg-stone-100 rounded-md border border-transparent focus:border-primary-500 focus:ring-0 px-4 py-3 text-sm text-stone-700"
+          >
+            <option value="">Выберите тип детали</option>
+            <option>Генератор</option>
+            <option>Стартер</option>
+            <option>Топливный насос</option>
+            <option>Форсунки</option>
+            <option>Гидрораспределитель</option>
+            <option>Гидроцилиндр</option>
+            <option>Гидронасос</option>
+            <option>Гидромотор</option>
+          </select>
+          {!partType && (
+            <p className="text-xs text-error-500">Выберите тип детали</p>
+          )}
+        </div>
 
           {/* Загрузка фото детали */}
           <div className="space-y-2">
@@ -214,24 +258,36 @@ export default function NewOrder() {
               className="w-full bg-stone-100 rounded-md border border-transparent focus:border-primary-500 focus:ring-0 px-4 py-3 text-sm text-stone-700 resize-none"
               placeholder="Чётко опишите проблему с деталью..."
             />
+            {!file && (
+              <p className="text-xs text-error-500">Загрузите фото детали</p>
+            )}
           </div>
 
-          {/* Кнопка «Перейти к следующему шагу» */}
+          {/* Кнопка «Отправить заказ» */}
           <button
             type="submit"
-            disabled={uploading}
+            disabled={uploading || !!disabledReason}
+            title={disabledReason}
             className={`
-              w-full flex items-center justify-center gap-2 bg-primary-500 
+              w-full flex items-center justify-center gap-2
+              ${success ? "bg-success-500" : "bg-primary-500"}
               hover:bg-primary-600 text-white rounded-md py-3 text-sm font-semibold transition
-              ${uploading ? "opacity-70 cursor-not-allowed" : ""}
+              ${uploading || disabledReason ? "opacity-70 cursor-not-allowed" : ""}
             `}
           >
             {uploading ? (
               <Loader2 className="animate-spin text-white" size={20} />
+              ) : success ? (
+              "Заказ отправлен"
             ) : (
-              "Перейти к следующему шагу"
+              "Отправить"
             )}
           </button>
+          {disabledReason && !uploading && !success && (
+            <p className="text-xs text-center text-stone-500 mt-1">
+              {disabledReason}
+            </p>
+          )}
         </form>
       </main>
 

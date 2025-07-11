@@ -52,7 +52,7 @@ router.get('/', auth_1.auth, async (req, res) => {
 router.post('/', auth_1.auth, async (req, res) => {
     try {
         const userId = req.user._id;
-        const clientName = req.user.name;
+        const clientName = req.user.name || req.user.email || 'Unknown';
         const { partType, description, images } = req.body;
         const newOrder = await (0, Order_1.createOrder)({
             userId,

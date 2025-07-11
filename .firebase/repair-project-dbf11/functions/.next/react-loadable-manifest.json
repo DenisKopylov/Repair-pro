@@ -24,7 +24,7 @@
       "static/chunks/48f35196-6ea904e990e5d74a.js",
       "static/chunks/435-c3f170217140842c.js",
       "static/chunks/131-54fbfb002a3c6dbe.js",
-      "static/chunks/611.bd02a3caf24eb044.js"
+      "static/chunks/611.d6d3b9ea4ad79388.js"
     ]
   },
   "app/new-order/page.tsx -> ../../lib/fetchWithAuth": {

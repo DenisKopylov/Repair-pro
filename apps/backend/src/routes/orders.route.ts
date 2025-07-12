@@ -1,6 +1,7 @@
 // apps/backend/src/routes/orders.route.ts
 
 import { Router, Request, Response } from 'express';
+import { NextFunction } from 'express';
 import eh from 'express-async-handler';
 import { auth, requireAdmin } from '../middlewares/auth';
 import {
@@ -31,11 +32,8 @@ function buildFilter(req: Request) {
 /* ─────────────── Routes ─────────────── */
 
 // GET /api/orders
-router.get(
-  '/',
-  auth,
-  eh(async (req: Request, res: Response) => {
-    const filter = buildFilter(req);
+router.get('/', auth, eh(async (req: Request, res: Response, next: NextFunction) => {
+  const filter = buildFilter(req);
 
     let sortField: 'createdAt' | 'repairPrice' = 'createdAt';
     let sortDir: 'asc' | 'desc' = 'desc';
@@ -53,15 +51,11 @@ router.get(
     }
 
     const orders = await listOrders(filter, sortField, sortDir);
-    res.json(orders);
-  })
-);
+   res.json(orders);
+}));
 
 // POST /api/orders
-router.post(
-  '/',
-  auth,
-  eh(async (req: Request, res: Response) => {
+router.post('/', auth, eh(async (req: Request, res: Response, next: NextFunction) => {
     const uid        = req.user.uid;
     const clientName = req.user.name ?? req.user.email;
     const { partType, description, images } = req.body;
@@ -81,9 +75,7 @@ router.post(
 
 // GET /api/orders/:id
 router.get(
-  '/:id',
-  auth,
-  eh(async (req: Request, res: Response) => {
+  '/:id',auth, eh(async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const order  = await getOrder(id);
     if (!order) {

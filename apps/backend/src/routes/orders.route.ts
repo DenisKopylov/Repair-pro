@@ -1,6 +1,6 @@
 // apps/backend/src/routes/orders.route.ts
 
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import eh from 'express-async-handler';
 import { auth, requireAdmin } from '../middlewares/auth';
 import {
@@ -14,7 +14,7 @@ const router = Router();
 
 /* ─────────────── Helpers ─────────────── */
 
-function buildFilter(req: any) {
+function buildFilter(req: Request) {
   const isAdmin = req.user?.role === 'ADMIN' && req.query.all === 'true';
   const uid = req.user?.uid;
   const filter: any = isAdmin ? {} : { uid };
@@ -34,7 +34,7 @@ function buildFilter(req: any) {
 router.get(
   '/',
   auth,
-  eh(async (req, res) => {
+  eh(async (req: Request, res: Response) => {
     const filter = buildFilter(req);
 
     let sortField: 'createdAt' | 'repairPrice' = 'createdAt';
@@ -61,7 +61,7 @@ router.get(
 router.post(
   '/',
   auth,
-  eh(async (req, res) => {
+  eh(async (req: Request, res: Response) => {
     const uid        = req.user.uid;
     const clientName = req.user.name ?? req.user.email;
     const { partType, description, images } = req.body;
@@ -83,7 +83,7 @@ router.post(
 router.get(
   '/:id',
   auth,
-  eh(async (req, res) => {
+  eh(async (req: Request, res: Response) => {
     const { id } = req.params;
     const order  = await getOrder(id);
     if (!order) {
@@ -105,7 +105,7 @@ router.patch(
   '/:id',
   auth,
   requireAdmin,
-  eh(async (req, res) => {
+  eh(async (req: Request, res: Response) => {
     const { id } = req.params;
     const { defectPrice, repairPrice, workHours } = req.body;
 
@@ -129,7 +129,7 @@ router.patch(
 router.post(
   '/:id/confirm',
   auth,
-  eh(async (req, res) => {
+  eh(async (req: Request, res: Response) => {
     const { id } = req.params;
     const order  = await getOrder(id);
     if (!order) {
@@ -155,7 +155,7 @@ router.put(
   '/:id',
   auth,
   requireAdmin,
-  eh(async (req, res) => {
+  eh(async (req: Request, res: Response) => {
     const { id } = req.params;
     const updated = await updateOrder(id, req.body);
 

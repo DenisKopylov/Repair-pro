@@ -1,8 +1,12 @@
 // apps/backend/src/middlewares/auth.ts
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 import { getAuth as getAdminAuth } from "firebase-admin/auth";
 
-export async function auth(req: any, res: Response, next: NextFunction) {
+export const auth: RequestHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const header = req.headers.authorization || "";
   const token = header.startsWith("Bearer ") ? header.substring(7) : null;
   if (!token) {
@@ -16,13 +20,13 @@ export async function auth(req: any, res: Response, next: NextFunction) {
     const { uid, name, role, email, ...rest } = decoded;
 
     req.user = {
-      // сначала кладём все «лишние» поля
+      
       ...rest,
 
-      // а потом свои явные
       uid,
       name: name || email || "No name",
       role: role || "CLIENT",
+      email,
     };
 
     return next();
@@ -30,11 +34,15 @@ export async function auth(req: any, res: Response, next: NextFunction) {
     console.error("verifyIdToken error", e);
     return res.status(401).json({ error: "bad token" });
   }
-}
+};
 
-export function requireAdmin(req: any, res: Response, next: NextFunction) {
+export const requireAdmin: RequestHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (req.user?.role !== "ADMIN") {
     return res.status(403).json({ error: "admin only" });
   }
   next();
-}
+};

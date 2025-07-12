@@ -1,7 +1,6 @@
 // apps/backend/src/routes/orders.route.ts
 
-import { Router, Request, Response } from 'express';
-import { NextFunction } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import eh from 'express-async-handler';
 import { auth, requireAdmin } from '../middlewares/auth';
 import {
@@ -13,11 +12,11 @@ import {
 
 const router = Router();
 
-/* ─────────────── Helpers ─────────────── */
+/* ───────────── Helpers ─────────────── */
 
 function buildFilter(req: Request) {
   const isAdmin = req.user?.role === 'ADMIN' && req.query.all === 'true';
-  const uid = req.user?.uid;
+  const uid     = req.user?.uid;
   const filter: any = isAdmin ? {} : { uid };
 
   if (req.query.search)   filter.clientName = String(req.query.search).trim();
@@ -32,32 +31,32 @@ function buildFilter(req: Request) {
 /* ─────────────── Routes ─────────────── */
 
 // GET /api/orders
-router.get('/', auth, eh(async (req: Request, res: Response, next: NextFunction) => {
-  const filter = buildFilter(req);
+router.get(
+  '/',
+  auth,
+  eh(async (req: Request, res: Response): Promise<void> => {
+    const filter = buildFilter(req);
 
     let sortField: 'createdAt' | 'repairPrice' = 'createdAt';
-    let sortDir: 'asc' | 'desc' = 'desc';
+    let sortDir: 'asc' | 'desc'               = 'desc';
     switch (req.query.sort) {
-      case 'dateAsc':
-        sortDir = 'asc';
-        break;
-      case 'priceAsc':
-        sortField = 'repairPrice';
-        sortDir   = 'asc';
-        break;
-      case 'priceDesc':
-        sortField = 'repairPrice';
-        break;
+      case 'dateAsc':   sortDir = 'asc';          break;
+      case 'priceAsc':  sortField = 'repairPrice'; sortDir = 'asc'; break;
+      case 'priceDesc': sortField = 'repairPrice'; break;
     }
 
     const orders = await listOrders(filter, sortField, sortDir);
-   res.json(orders);
-}));
+    res.json(orders);                 // ничего не возвращаем
+  })
+);
 
 // POST /api/orders
-router.post('/', auth, eh(async (req: Request, res: Response, next: NextFunction) => {
-    const uid        = req.user.uid;
-    const clientName = req.user.name ?? req.user.email;
+router.post(
+  '/',
+  auth,
+  eh(async (req: Request, res: Response): Promise<void> => {
+    const uid        = req.user!.uid;
+    const clientName = req.user!.name ?? req.user!.email ?? 'Unknown';
     const { partType, description, images } = req.body;
 
     const newOrder = await createOrder({
@@ -75,15 +74,13 @@ router.post('/', auth, eh(async (req: Request, res: Response, next: NextFunction
 
 // GET /api/orders/:id
 router.get(
-  '/:id',auth, eh(async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
-    const order  = await getOrder(id);
-    if (!order) {
-      res.sendStatus(404);
-      return;
-    }
+  '/:id',
+  auth,
+  eh(async (req: Request, res: Response): Promise<void> => {
+    const order = await getOrder(req.params.id);
+    if (!order) { res.sendStatus(404); return; }
 
-    if (req.user.role !== 'ADMIN' && String(order.uid) !== String(req.user.uid)) {
+    if (req.user!.role !== 'ADMIN' && String(order.uid) !== String(req.user!.uid)) {
       res.status(403).json({ error: 'forbidden' });
       return;
     }
@@ -97,7 +94,7 @@ router.patch(
   '/:id',
   auth,
   requireAdmin,
-  eh(async (req: Request, res: Response) => {
+  eh(async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const { defectPrice, repairPrice, workHours } = req.body;
 
@@ -108,11 +105,7 @@ router.patch(
       status: 'OFFERED',
     });
 
-    if (!updated) {
-      res.sendStatus(404);
-      return;
-    }
-
+    if (!updated) { res.sendStatus(404); return; }
     res.json(updated);
   })
 );
@@ -121,22 +114,20 @@ router.patch(
 router.post(
   '/:id/confirm',
   auth,
-  eh(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const order  = await getOrder(id);
-    if (!order) {
-      res.sendStatus(404);
-      return;
-    }
+  eh(async (req: Request, res: Response): Promise<void> => {
+    const order = await getOrder(req.params.id);
+    if (!order) { res.sendStatus(404); return; }
 
-    if (String(order.uid) !== String(req.user.uid)) {
+    if (String(order.uid) !== String(req.user!.uid)) {
       res.status(403).json({ error: 'forbidden' });
       return;
     }
 
-    const ok        = req.body.ok === true;
+    const ok      = req.body.ok === true;
     const newStatus = ok ? 'CONFIRMED' : 'DECLINED';
-    const updated   = await updateOrder(id, { status: newStatus });
+
+    // ✓ ID гарантированно строка
+    const updated = await updateOrder(req.params.id, { status: newStatus });
 
     res.json(updated);
   })
@@ -147,17 +138,9 @@ router.put(
   '/:id',
   auth,
   requireAdmin,
-  eh(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const updated = await updateOrder(id, req.body);
-
-    if (!updated) {
-      res.sendStatus(404);
-      return;
-    }
-
+  eh(async (req: Request, res: Response): Promise<void> => {
+    const updated = await updateOrder(req.params.id, req.body);
+    if (!updated) { res.sendStatus(404); return; }
     res.json(updated);
   })
 );
-
-export default router;

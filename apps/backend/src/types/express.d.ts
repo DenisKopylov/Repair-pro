@@ -1,15 +1,21 @@
 // src/types/express.d.ts
-import 'express';
+import "express";                 // чтобы подтянуть исходные типы
 
-declare module 'express' {
-  interface Request {
-    user: {
-      uid: string;
-      email: string;
-      name?: string;
-      role?: string;
-    };
+declare global {
+  namespace Express {
+    /** Полная форма данных, которые кладёт auth-middleware */
+    interface UserPayload {
+      uid:   string;
+      name:  string;
+      role:  string;
+      email?: string;             // ⚠️ делаем опциональным!
+      // любые другие поля из Firebase-токена:
+      [key: string]: unknown;
+    }
+
+    interface Request {
+      /** Заполняется в auth-middleware */
+      user?: UserPayload;
+    }
   }
 }
-
-export {}; // Ensure this file is treated as a module

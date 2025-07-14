@@ -5,8 +5,8 @@
   "/admin/orders/stats/page": "/admin/orders/stats",
   "/login/page": "/login",
   "/new-order/page": "/new-order",
-  "/orders/page": "/orders",
   "/orders/[id]/page": "/orders/[id]",
-  "/register/page": "/register",
-  "/page": "/"
+  "/orders/page": "/orders",
+  "/page": "/",
+  "/register/page": "/register"
 }

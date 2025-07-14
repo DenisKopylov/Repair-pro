@@ -144,3 +144,5 @@ router.put(
     res.json(updated);
   })
 );
+
+export default router;

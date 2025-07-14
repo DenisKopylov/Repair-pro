@@ -91,24 +91,17 @@ export default function NewOrder() {
     setUploading(true);
     setSuccess(false);
 
-    // Загрузка фото в Firebase Storage
+    // ⬇️ Загрузка фото в Firebase Storage через Web SDK
     let imageUrl = "";
     if (file) {
       try {
-        // Ленивый импорт, чтобы не выполнять на сервере:
         const { storage } = await import("../../firebaseConfig");
         const { ref, uploadBytes, getDownloadURL } = await import("firebase/storage");
 
-        // Если storage === undefined, то бросим ошибку: 
-        if (!storage) {
-          throw new Error("Firebase Storage не инициализирован");
-        }
-
-        // Здесь мы точно знаем, что storage — не undefined:
-        const fbStorage = storage; 
-        const storageRef = ref(storage, `order-images/${Date.now()}_${file.name}`);
-        const snap = await uploadBytes(storageRef, file);
-        imageUrl = await getDownloadURL(snap.ref);
+        const filePath = `order-images/${Date.now()}_${file.name}`;
+        const fileRef  = ref(storage, filePath);
+        await uploadBytes(fileRef, file);     // ① загружаем
+        imageUrl = await getDownloadURL(fileRef); // ② получаем URL
       } catch (err) {
         console.error("Ошибка загрузки фото:", err);
         alert("Не удалось загрузить фото. Попробуйте ещё раз.");
